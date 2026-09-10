@@ -62,18 +62,22 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server immediately and connect DB in background
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(` 🛰️  SURVER Engine is live on http://localhost:${PORT}`);
-  console.log(` 📡  Status: Operational`);
-  console.log(` 🤖  Gemini AI API: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Resilient Fallback Mode Active'}`);
-  console.log(`=======================================================`);
+// Start Server immediately when not running as a Vercel serverless function
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(` 🛰️  SURVER Engine is live on http://localhost:${PORT}`);
+    console.log(` 📡  Status: Operational`);
+    console.log(` 🤖  Gemini AI API: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Resilient Fallback Mode Active'}`);
+    console.log(`=======================================================`);
 
-  // Attempt database connection in background
-  if (process.env.MONGODB_URI) {
-    connectDB(process.env.MONGODB_URI).catch((err) => {
-      console.log('[SURVER DB] Background MongoDB connect note:', err.message);
-    });
-  }
-});
+    // Attempt database connection in background
+    if (process.env.MONGODB_URI) {
+      connectDB(process.env.MONGODB_URI).catch((err) => {
+        console.log('[SURVER DB] Background MongoDB connect note:', err.message);
+      });
+    }
+  });
+}
+
+export default app;
