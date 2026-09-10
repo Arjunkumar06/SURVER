@@ -31,11 +31,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// API Routes
+// API Routes mounted on both '/api' and '/' to guarantee Vercel serverless path matching
 app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
 // Root index status
-app.get('/', (req, res) => {
+app.get('/status', (req, res) => {
   res.json({
     name: 'SURVER API Engine',
     description: 'Satellite-Powered AI Emergency Resource Orchestration Network',
@@ -62,6 +63,13 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Attempt database connection if configured
+if (process.env.MONGODB_URI) {
+  connectDB(process.env.MONGODB_URI).catch((err) => {
+    console.log('[SURVER DB] Background MongoDB connect note:', err.message);
+  });
+}
+
 // Start Server immediately when not running as a Vercel serverless function
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
@@ -70,13 +78,6 @@ if (!process.env.VERCEL) {
     console.log(` 📡  Status: Operational`);
     console.log(` 🤖  Gemini AI API: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Resilient Fallback Mode Active'}`);
     console.log(`=======================================================`);
-
-    // Attempt database connection in background
-    if (process.env.MONGODB_URI) {
-      connectDB(process.env.MONGODB_URI).catch((err) => {
-        console.log('[SURVER DB] Background MongoDB connect note:', err.message);
-      });
-    }
   });
 }
 
