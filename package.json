@@ -1,0 +1,19 @@
+{
+  "name": "surver",
+  "version": "1.0.0",
+  "description": "SURVER — Satellite-Powered AI Emergency Resource Orchestration Network",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start": "npm --prefix server start",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "build": "npm --prefix client run build"
+  },
+  
+  
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": ["emergency", "satellite", "ai", "gemini", "disaster-response", "orchestration"]
+}
