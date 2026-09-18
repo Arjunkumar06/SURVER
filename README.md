@@ -4,6 +4,7 @@
 
 > **SURVER** does not simply claim *"AI predicts disasters"*. Instead, **SURVER converts disaster intelligence into an actionable, deterministic emergency resource allocation plan.**
 
+WEB LINK: "https://surver-lp7r-bay.vercel.app/"
 ---
 
 ## 1. Problem Statement
