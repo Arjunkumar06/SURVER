@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { 
@@ -10,7 +10,14 @@ import {
   Sparkles, 
   Navigation,
   CheckCircle2,
-  Globe
+  Globe,
+  Layers,
+  Cpu,
+  History,
+  Home,
+  CloudRain,
+  Mountain,
+  Droplet
 } from 'lucide-react';
 
 // Fix for default Leaflet icon urls
@@ -67,6 +74,65 @@ export function createDisasterIcon(severity, code, isSelected = false) {
   });
 }
 
+export function createSensorIcon(status, type) {
+  const color = 
+    status === 'CRITICAL' ? '#FF2E54' :
+    status === 'WARNING' ? '#F59E0B' : '#10B981';
+
+  return L.divIcon({
+    className: 'custom-sensor-icon',
+    html: `
+      <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        background: #0B0F19;
+        border: 2px solid ${color};
+        border-radius: 50%;
+        box-shadow: 0 0 12px ${color};
+        color: ${color};
+        font-weight: 800;
+        font-size: 11px;
+        font-family: 'JetBrains Mono', monospace;
+      ">
+        <span>⚡</span>
+      </div>
+    `,
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+    popupAnchor: [0, -13]
+  });
+}
+
+export function createShelterIcon() {
+  return L.divIcon({
+    className: 'custom-shelter-icon',
+    html: `
+      <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #0B0F19;
+        border: 2px solid #00F0FF;
+        border-radius: 6px;
+        box-shadow: 0 0 14px #00F0FF;
+        color: #00F0FF;
+        font-weight: 800;
+        font-size: 12px;
+      ">
+        <span>⛺</span>
+      </div>
+    `,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -14]
+  });
+}
+
 export function createFacilityIcon(type) {
   let bg = '#00F0FF';
   let letter = 'W';
@@ -112,7 +178,7 @@ export function createFacilityIcon(type) {
   });
 }
 
-// Controller component to smoothly fly to selected zone & handle size invalidation
+// Controller component to smoothly fly to selected zone
 function MapFocusController({ selectedZone }) {
   const map = useMap();
   useEffect(() => {
@@ -136,6 +202,8 @@ function MapFocusController({ selectedZone }) {
 export default function CommandMap({ 
   disasters = [], 
   facilities = [], 
+  sensors = [],
+  shelters = [],
   selectedZone, 
   onSelectZone, 
   onAnalyzeZone, 
@@ -143,14 +211,23 @@ export default function CommandMap({
   activeAllocations = [],
   className = "w-full h-full"
 }) {
-  // Global default center
-  const globalCenter = [22.0, 35.0];
+  const globalCenter = [30.5568, 79.5661]; // Default focus on Uttarakhand / Himalayan Hilly Region
+  const [activeLayers, setActiveLayers] = useState({
+    villages: true,
+    shelters: true,
+    facilities: true,
+    radii: true
+  });
+
+  const toggleLayer = (key) => {
+    setActiveLayers(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   return (
     <div className={`relative rounded-3xl overflow-hidden border border-white/15 shadow-[0_16px_40px_0_rgba(0,0,0,0.85)] ${className}`}>
       <MapContainer
         center={selectedZone?.location ? [selectedZone.location.lat, selectedZone.location.lng] : globalCenter}
-        zoom={selectedZone ? 8 : 2.5}
+        zoom={selectedZone ? 9 : 6.5}
         minZoom={2}
         maxZoom={18}
         worldCopyJump={true}
@@ -166,7 +243,7 @@ export default function CommandMap({
         <MapFocusController selectedZone={selectedZone} />
 
         {/* Disaster Inundation / Impact Danger Radii */}
-        {disasters.map((disaster) => {
+        {activeLayers.radii && disasters.map((disaster) => {
           if (!disaster.location) return null;
           const isSelected = selectedZone?.id === disaster.id || selectedZone?.code === disaster.code;
 
@@ -190,79 +267,75 @@ export default function CommandMap({
                   dashArray: isSelected ? undefined : '6, 8'
                 }}
               />
-              <Marker
-                position={[disaster.location.lat, disaster.location.lng]}
-                icon={createDisasterIcon(disaster.severity, disaster.code, isSelected)}
-                eventHandlers={{
-                  click: () => onSelectZone && onSelectZone(disaster)
-                }}
-              >
-                <Popup>
-                  <div className="text-[#F8FAFC] font-mono min-w-[250px] space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                      <div className="flex items-center space-x-1.5">
-                        <span className="font-extrabold text-xs text-[#00F0FF] tracking-wide">
-                          {disaster.code}
-                        </span>
-                        <span className="text-[10px] text-[#94A3B8] font-bold">
-                          ({disaster.country || disaster.location?.country || 'Global'})
+              {activeLayers.villages && (
+                <Marker
+                  position={[disaster.location.lat, disaster.location.lng]}
+                  icon={createDisasterIcon(disaster.severity, disaster.code, isSelected)}
+                  eventHandlers={{
+                    click: () => onSelectZone && onSelectZone(disaster)
+                  }}
+                >
+                  <Popup>
+                    <div className="text-[#F8FAFC] font-mono min-w-[280px] space-y-2.5">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <div className="flex items-center space-x-1.5">
+                          <span className="font-extrabold text-xs text-[#00F0FF] tracking-wide">
+                            {disaster.code}
+                          </span>
+                          <span className="text-[10px] text-[#94A3B8] font-bold">
+                            ({disaster.state || disaster.country || 'Hilly Region'})
+                          </span>
+                        </div>
+                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-lg ${
+                          disaster.severity === 'Critical' ? 'bg-[#FF2E54]/20 text-[#FF2E54] border border-[#FF2E54]/50' :
+                          disaster.severity === 'High' ? 'bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/50' :
+                          'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/50'
+                        }`}>
+                          {disaster.severity}
                         </span>
                       </div>
-                      <span className={`px-2 py-0.5 text-[10px] font-bold rounded-lg ${
-                        disaster.severity === 'Critical' ? 'bg-[#FF2E54]/20 text-[#FF2E54] border border-[#FF2E54]/50' :
-                        disaster.severity === 'High' ? 'bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/50' :
-                        'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/50'
-                      }`}>
-                        {disaster.severity}
-                      </span>
-                    </div>
 
-                    <div className="text-xs space-y-1 text-[#94A3B8]">
-                      <p className="font-bold text-white">{disaster.name}</p>
-                      <div className="grid grid-cols-2 gap-1.5 py-1 text-[11px]">
-                        <div>
-                          <span className="text-[#94A3B8]">Type:</span> <strong className="text-white">{disaster.type}</strong>
-                        </div>
-                        <div>
-                          <span className="text-[#94A3B8]">Risk Score:</span> <strong className="text-[#FF2E54]">{disaster.riskScore}/100</strong>
-                        </div>
-                        <div>
-                          <span className="text-[#94A3B8]">Population:</span> <strong className="text-white">{(disaster.affectedPopulation || 0).toLocaleString()}</strong>
-                        </div>
-                        <div>
-                          <span className="text-[#94A3B8]">Area:</span> <strong className="text-white">{disaster.affectedAreaKm2} km²</strong>
-                        </div>
-                        <div className="col-span-2">
-                          <span className="text-[#94A3B8]">Road Access:</span> <strong className="text-[#F59E0B]">{disaster.roadAccessibilityPercent}%</strong>
+                      <div className="text-xs space-y-1.5 text-[#94A3B8]">
+                        <p className="font-bold text-white text-sm">{disaster.village || disaster.name}</p>
+                        <p className="text-[11px] text-[#00F0FF]">{disaster.tehsil || 'Tehsil'}, {disaster.district || 'District'} ({disaster.state || 'State'})</p>
+
+                        <div className="grid grid-cols-2 gap-1.5 py-1.5 text-[11px] bg-[#0B0F19] p-2 rounded-xl border border-white/10">
+                          <div><span className="text-[#94A3B8]">Rainfall:</span> <strong className="text-[#00F0FF]">{disaster.environmentalData?.rainfallMm || 95} mm/h</strong></div>
+                          <div><span className="text-[#94A3B8]">Soil Moisture:</span> <strong className="text-[#FF2E54]">{disaster.environmentalData?.soilSaturationPercent || 85}%</strong></div>
+                          <div><span className="text-[#94A3B8]">Slope Incline:</span> <strong className="text-[#F59E0B]">{disaster.slopeAngleDegrees || 38}°</strong></div>
+                          <div><span className="text-[#94A3B8]">Stability Index:</span> <strong className="text-[#F59E0B]">{disaster.slopeStabilityIndex || 0.42}</strong></div>
+                          <div><span className="text-[#94A3B8]">Risk Score:</span> <strong className="text-[#FF2E54]">{disaster.riskScore}/100</strong></div>
+                          <div><span className="text-[#94A3B8]">Lead Time:</span> <strong className="text-[#00F0FF]">{disaster.leadTimeMinutes || 28} min</strong></div>
+                          <div className="col-span-2"><span className="text-[#94A3B8]">Population at Risk:</span> <strong className="text-white">{(disaster.affectedPopulation || 0).toLocaleString()}</strong></div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="pt-2 border-t border-white/10 flex items-center space-x-2">
-                      <button
-                        onClick={() => onAnalyzeZone && onAnalyzeZone(disaster)}
-                        className="flex-1 px-2.5 py-1.5 cyber-btn-purple rounded-xl text-xs flex items-center justify-center space-x-1"
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>Inspect & AI</span>
-                      </button>
-                      <button
-                        onClick={() => onOptimizeZone && onOptimizeZone(disaster)}
-                        className="flex-1 px-2.5 py-1.5 cyber-btn-cyan rounded-xl text-xs flex items-center justify-center space-x-1"
-                      >
-                        <Navigation className="w-3.5 h-3.5" />
-                        <span>Optimize</span>
-                      </button>
+                      <div className="pt-2 border-t border-white/10 flex items-center space-x-2">
+                        <button
+                          onClick={() => onAnalyzeZone && onAnalyzeZone(disaster)}
+                          className="flex-1 px-2.5 py-1.5 cyber-btn-purple rounded-xl text-xs flex items-center justify-center space-x-1"
+                        >
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>Inspect AI</span>
+                        </button>
+                        <button
+                          onClick={() => onOptimizeZone && onOptimizeZone(disaster)}
+                          className="flex-1 px-2.5 py-1.5 cyber-btn-cyan rounded-xl text-xs flex items-center justify-center space-x-1"
+                        >
+                          <Navigation className="w-3.5 h-3.5" />
+                          <span>Evacuate</span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </Popup>
-              </Marker>
+                  </Popup>
+                </Marker>
+              )}
             </React.Fragment>
           );
         })}
 
         {/* Resource Facilities */}
-        {facilities.map((fac) => {
+        {activeLayers.facilities && facilities.map((fac) => {
           if (!fac.location) return null;
           return (
             <Marker
@@ -274,10 +347,11 @@ export default function CommandMap({
                 <div className="text-[#F8FAFC] font-mono min-w-[220px] space-y-2">
                   <div className="border-b border-white/10 pb-1.5">
                     <span className="text-[10px] uppercase font-bold text-[#00F0FF]">
-                      {fac.type} ({fac.country || 'Regional'})
+                      {fac.type} ({fac.state || fac.country || 'Regional'})
                     </span>
                     <h4 className="font-bold text-sm text-white">{fac.name}</h4>
                   </div>
+
                   <div className="grid grid-cols-2 gap-1 text-[11px] text-[#94A3B8]">
                     <div>Water: <strong className="text-[#00F0FF]">{fac.inventory?.waterKits || 0}</strong></div>
                     <div>Food: <strong className="text-[#F59E0B]">{fac.inventory?.foodKits || 0}</strong></div>
@@ -316,53 +390,62 @@ export default function CommandMap({
         )}
       </MapContainer>
 
-      {/* Global Navigation Reset Helper */}
-      <div className="absolute top-3 right-3 z-[10] flex items-center space-x-2">
+      {/* Layer Switcher Controls (Top Right Overlay) */}
+      <div className="absolute top-3 right-3 z-[10] flex items-center space-x-2 font-mono">
+        <div className="cyber-card p-1.5 rounded-2xl flex items-center space-x-1.5 border border-white/10 text-xs">
+          <button
+            onClick={() => toggleLayer('villages')}
+            className={`px-2.5 py-1 rounded-xl transition ${activeLayers.villages ? 'bg-[#00F0FF]/20 text-[#00F0FF] border border-[#00F0FF]/40 font-bold' : 'text-[#94A3B8]'}`}
+          >
+            Villages
+          </button>
+          <button
+            onClick={() => toggleLayer('facilities')}
+            className={`px-2.5 py-1 rounded-xl transition ${activeLayers.facilities ? 'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/40 font-bold' : 'text-[#94A3B8]'}`}
+          >
+            Depots
+          </button>
+          <button
+            onClick={() => toggleLayer('radii')}
+            className={`px-2.5 py-1 rounded-xl transition ${activeLayers.radii ? 'bg-[#FF2E54]/20 text-[#FF2E54] border border-[#FF2E54]/40 font-bold' : 'text-[#94A3B8]'}`}
+          >
+            Risk Radii
+          </button>
+        </div>
+
         {selectedZone && (
           <button
             onClick={() => onSelectZone && onSelectZone(null)}
-            className="flex items-center space-x-1.5 cyber-pill-active px-3 py-1.5 rounded-xl text-xs font-mono font-extrabold transition shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+            className="flex items-center space-x-1.5 cyber-pill-active px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-[0_0_20px_rgba(0,240,255,0.4)]"
           >
             <Globe className="w-3.5 h-3.5 text-[#00F0FF]" />
-            <span>Reset Global View</span>
+            <span>Reset View</span>
           </button>
         )}
-        <div className="flex items-center space-x-1.5 cyber-pill px-3.5 py-1.5 rounded-xl text-xs text-[#F8FAFC] font-mono font-bold">
-          <Globe className="w-3.5 h-3.5 text-[#00F0FF] animate-pulse" />
-          <span className="text-[11px]">Global GIS Mode</span>
-        </div>
       </div>
 
       {/* Map Legend Overlay */}
-      <div className="absolute bottom-4 left-4 z-[10] cyber-card p-4 rounded-2xl text-xs space-y-2 shadow-2xl font-mono">
+      <div className="absolute bottom-4 left-4 z-[10] cyber-card p-3.5 rounded-2xl text-xs space-y-2 shadow-2xl font-mono">
         <div className="font-extrabold text-[#F8FAFC] text-[11px] uppercase tracking-widest flex items-center space-x-1.5">
           <span className="w-2 h-2 rounded-full bg-[#00F0FF]"></span>
-          <span>Command Legend</span>
+          <span>SIH 2026 GIS Legend</span>
         </div>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px]">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[10.5px]">
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF2E54] shadow-[0_0_8px_rgba(255,46,84,0.6)]"></span>
-            <span className="text-[#94A3B8] font-bold">Critical Zone</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF2E54]"></span>
+            <span className="text-[#94A3B8] font-bold">Critical Risk</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B] shadow-[0_0_8px_rgba(245,158,11,0.6)]"></span>
-            <span className="text-[#94A3B8] font-bold">High Risk</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]"></span>
+            <span className="text-[#94A3B8] font-bold">High Warning</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
-            <span className="text-[#94A3B8] font-bold">Operational</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]"></span>
+            <span className="text-[#94A3B8] font-bold">Nominal</span>
           </div>
           <div className="flex items-center space-x-1.5">
             <span className="w-2.5 h-2.5 rounded-md border border-[#00F0FF] bg-[#0B0F19] text-[#00F0FF] text-[9px] flex items-center justify-center font-bold">W</span>
-            <span className="text-[#94A3B8] font-bold">Warehouse</span>
-          </div>
-          <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-md border border-[#FF2E54] bg-[#0B0F19] text-[#FF2E54] text-[9px] flex items-center justify-center font-bold">H</span>
-            <span className="text-[#94A3B8] font-bold">Hospital</span>
-          </div>
-          <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-md border border-[#10B981] bg-[#0B0F19] text-[#10B981] text-[9px] flex items-center justify-center font-bold">A</span>
-            <span className="text-[#94A3B8] font-bold">Ambulance</span>
+            <span className="text-[#94A3B8] font-bold">NDRF Depot</span>
           </div>
         </div>
       </div>

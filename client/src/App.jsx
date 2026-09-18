@@ -4,7 +4,10 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import DisasterZones from './pages/DisasterZones';
+import IoTSensors from './pages/IoTSensors';
+import EarlyWarnings from './pages/EarlyWarnings';
 import SatelliteIntelligence from './pages/SatelliteIntelligence';
+import HistoricalIntelligence from './pages/HistoricalIntelligence';
 import Resources from './pages/Resources';
 import ResponsePlans from './pages/ResponsePlans';
 import Analytics from './pages/Analytics';
@@ -24,7 +27,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/zones" element={<DisasterZones />} />
+              <Route path="/sensors" element={<IoTSensors />} />
+              <Route path="/warnings" element={<EarlyWarnings />} />
               <Route path="/satellite" element={<SatelliteIntelligence />} />
+              <Route path="/history" element={<HistoricalIntelligence />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/plans" element={<ResponsePlans />} />
               <Route path="/analytics" element={<Analytics />} />

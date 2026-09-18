@@ -1,6 +1,350 @@
+export const sihMetadata = {
+  problemId: "26192",
+  title: "Flash Flood Prediction System for Hilly Regions using Multi-Source Data",
+  organization: "Ministry of Home Affairs",
+  department: "National Disaster Response Force (NDRF), DM Division",
+  category: "Software",
+  theme: "Disaster Management",
+  disclaimer: "Prototype system for Smart India Hackathon 2026 demonstration. Risk predictions shown use simulated/demo data and are not a substitute for official disaster warnings."
+};
+
 export const initialDisasters = [
   // ==========================================
-  // NEPAL SCENARIOS
+  // INDIAN HILLY REGION SCENARIOS (SIH 2026 PROBLEM STATEMENT 26192)
+  // ==========================================
+  {
+    id: "zone-uk-1",
+    name: "Joshimath Slope Failure & Alaknanda Flash Flood Sector",
+    code: "ZONE UK-01",
+    country: "India",
+    state: "Uttarakhand",
+    district: "Chamoli",
+    tehsil: "Joshimath",
+    village: "Joshimath Ward 4 & 5",
+    ward: "Ward 4 (Sunil)",
+    region: "Hilly Region Sector",
+    type: "Flash Flood & Landslide",
+    severity: "Critical",
+    warningLevel: "CRITICAL",
+    riskScore: 94,
+    leadTimeMinutes: 28,
+    sensorMode: "Real-Time Multi-Source IoT Fusion",
+    location: {
+      lat: 30.5568,
+      lng: 79.5661,
+      address: "Alaknanda River Confluence & Slope Corridor",
+      city: "Joshimath",
+      state: "Uttarakhand",
+      country: "India"
+    },
+    affectedPopulation: 4820,
+    affectedAreaKm2: 8.5,
+    roadAccessibilityPercent: 32,
+    waterCoverageBeforeKm2: 1.2,
+    waterCoverageAfterKm2: 5.8,
+    waterExpansionPercent: 383.3,
+    slopeAngleDegrees: 38,
+    slopeStabilityIndex: 0.42,
+    historicalLandslideCount: 6,
+    iotStatus: "CRITICAL",
+    evacuationReadiness: "EVACUATION RECOMMENDED",
+    safeShelter: {
+      id: "SHELTER-UK01",
+      name: "Joshimath High Ground Refuge Dome",
+      distanceKm: 2.4,
+      travelTimeMinutes: 14,
+      capacity: 800
+    },
+    satelliteSource: "Sentinel-1 SAR + ALOS PALSAR",
+    satelliteObservationDate: "2026-08-30",
+    status: "Active",
+    description: "Cloudburst rainfall over upper Alaknanda catchment combined with high soil saturation and slope instability triggered imminent flash flood and landslide risk.",
+    environmentalData: {
+      rainfallMm: 112.5,
+      riverLevelM: 5.8,
+      soilSaturationPercent: 89,
+      windSpeedKmph: 45,
+      slopeDegrees: 38,
+      temperatureC: 17,
+      sensorSource: "IoT Telemetric Cluster #UK-JM01"
+    },
+    suggestedRequirements: {
+      waterKits: 480,
+      foodKits: 350,
+      ambulances: 4,
+      rescueTeams: 5,
+      boats: 2,
+      medicalKits: 300
+    },
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "zone-uk-2",
+    name: "Kedarnath Mandakini Basin Torrential Corridor",
+    code: "ZONE UK-02",
+    country: "India",
+    state: "Uttarakhand",
+    district: "Rudraprayag",
+    tehsil: "Ukhimath",
+    village: "Gaurikund / Rambara Corridor",
+    ward: "Ward 2",
+    region: "Hilly Region Sector",
+    type: "Flash Flood",
+    severity: "Critical",
+    warningLevel: "CRITICAL",
+    riskScore: 91,
+    leadTimeMinutes: 35,
+    sensorMode: "Real-Time Multi-Source IoT Fusion",
+    location: {
+      lat: 30.6522,
+      lng: 79.0256,
+      address: "Mandakini River Headwaters",
+      city: "Gaurikund",
+      state: "Uttarakhand",
+      country: "India"
+    },
+    affectedPopulation: 6100,
+    affectedAreaKm2: 12.4,
+    roadAccessibilityPercent: 28,
+    waterCoverageBeforeKm2: 2.1,
+    waterCoverageAfterKm2: 8.9,
+    waterExpansionPercent: 323.8,
+    slopeAngleDegrees: 44,
+    slopeStabilityIndex: 0.48,
+    historicalLandslideCount: 9,
+    iotStatus: "CRITICAL",
+    evacuationReadiness: "EVACUATION RECOMMENDED",
+    safeShelter: {
+      id: "SHELTER-UK02",
+      name: "Pipalkoti NDRF High Ground Staging Camp",
+      distanceKm: 8.1,
+      travelTimeMinutes: 32,
+      capacity: 1500
+    },
+    satelliteSource: "Sentinel-1 SAR",
+    satelliteObservationDate: "2026-08-30",
+    status: "Active",
+    description: "Rapid water level rise in Mandakini river driven by localized cloudburst and steep catchment runoff.",
+    environmentalData: {
+      rainfallMm: 128.0,
+      riverLevelM: 6.4,
+      soilSaturationPercent: 94,
+      windSpeedKmph: 50,
+      slopeDegrees: 44,
+      temperatureC: 15,
+      sensorSource: "Hydrological River Radar #UK-KN02"
+    },
+    suggestedRequirements: {
+      waterKits: 610,
+      foodKits: 450,
+      ambulances: 5,
+      rescueTeams: 6,
+      boats: 3,
+      medicalKits: 400
+    },
+    createdAt: new Date(Date.now() - 1800000).toISOString()
+  },
+  {
+    id: "zone-hp-1",
+    name: "Kullu Valley Beas River Surge Sector",
+    code: "ZONE HP-01",
+    country: "India",
+    state: "Himachal Pradesh",
+    district: "Kullu",
+    tehsil: "Manali",
+    village: "Solang Nallah & Palchan",
+    ward: "Ward 1",
+    region: "Hilly Region Sector",
+    type: "Flash Flood",
+    severity: "High",
+    warningLevel: "WARNING",
+    riskScore: 84,
+    leadTimeMinutes: 42,
+    sensorMode: "Real-Time Multi-Source IoT Fusion",
+    location: {
+      lat: 32.2432,
+      lng: 77.1892,
+      address: "Beas River Basin Sector, Palchan",
+      city: "Manali / Kullu",
+      state: "Himachal Pradesh",
+      country: "India"
+    },
+    affectedPopulation: 5400,
+    affectedAreaKm2: 9.2,
+    roadAccessibilityPercent: 52,
+    waterCoverageBeforeKm2: 1.8,
+    waterCoverageAfterKm2: 5.4,
+    waterExpansionPercent: 200.0,
+    slopeAngleDegrees: 32,
+    slopeStabilityIndex: 0.55,
+    historicalLandslideCount: 5,
+    iotStatus: "WARNING",
+    evacuationReadiness: "STANDBY FOR EVACUATION",
+    safeShelter: {
+      id: "SHELTER-HP01",
+      name: "Kullu Indoor Sports Complex Refuge Center",
+      distanceKm: 3.5,
+      travelTimeMinutes: 18,
+      capacity: 1200
+    },
+    satelliteSource: "Sentinel-2 MSI",
+    satelliteObservationDate: "2026-08-30",
+    status: "Active",
+    description: "Beas river surge washing over low banks after continuous overnight mountain precipitation.",
+    environmentalData: {
+      rainfallMm: 95.0,
+      riverLevelM: 4.5,
+      soilSaturationPercent: 84,
+      windSpeedKmph: 32,
+      slopeDegrees: 32,
+      temperatureC: 18,
+      sensorSource: "Hydro-Acoustic Sensor #HP-KL01"
+    },
+    suggestedRequirements: {
+      waterKits: 540,
+      foodKits: 380,
+      ambulances: 3,
+      rescueTeams: 4,
+      boats: 2,
+      medicalKits: 280
+    },
+    createdAt: new Date(Date.now() - 3600000).toISOString()
+  },
+  {
+    id: "zone-sk-1",
+    name: "Lachen Teesta Stage III Glacial Flash Flood Corridor",
+    code: "ZONE SK-01",
+    country: "India",
+    state: "Sikkim",
+    district: "North Sikkim",
+    tehsil: "Chungthang",
+    village: "Lachen Valley / Chungthang",
+    ward: "Ward 3",
+    region: "Hilly Region Sector",
+    type: "Flash Flood & Landslide",
+    severity: "Critical",
+    warningLevel: "CRITICAL",
+    riskScore: 96,
+    leadTimeMinutes: 18,
+    sensorMode: "Real-Time Multi-Source IoT Fusion",
+    location: {
+      lat: 27.7025,
+      lng: 88.5492,
+      address: "Teesta River High Altitude Basin",
+      city: "Chungthang",
+      state: "Sikkim",
+      country: "India"
+    },
+    affectedPopulation: 2850,
+    affectedAreaKm2: 7.1,
+    roadAccessibilityPercent: 20,
+    waterCoverageBeforeKm2: 1.1,
+    waterCoverageAfterKm2: 5.9,
+    waterExpansionPercent: 436.3,
+    slopeAngleDegrees: 48,
+    slopeStabilityIndex: 0.36,
+    historicalLandslideCount: 8,
+    iotStatus: "CRITICAL",
+    evacuationReadiness: "IMMEDIATE EVACUATION REQUIRED",
+    safeShelter: {
+      id: "SHELTER-SK01",
+      name: "Chungthang High Ground Battalion Shelter",
+      distanceKm: 4.2,
+      travelTimeMinutes: 22,
+      capacity: 600
+    },
+    satelliteSource: "Sentinel-1 SAR",
+    satelliteObservationDate: "2026-08-30",
+    status: "Active",
+    description: "Rapid surge in upper Teesta basin caused by high-altitude lake discharge and torrential downpour.",
+    environmentalData: {
+      rainfallMm: 145.0,
+      riverLevelM: 7.8,
+      soilSaturationPercent: 97,
+      windSpeedKmph: 55,
+      slopeDegrees: 48,
+      temperatureC: 12,
+      sensorSource: "Glacial Lake Outburst Radar #SK-LC01"
+    },
+    suggestedRequirements: {
+      waterKits: 280,
+      foodKits: 200,
+      ambulances: 2,
+      rescueTeams: 5,
+      boats: 3,
+      medicalKits: 220
+    },
+    createdAt: new Date(Date.now() - 5400000).toISOString()
+  },
+  {
+    id: "zone-mg-1",
+    name: "Cherrapunji Plateau Extreme Runoff Sector",
+    code: "ZONE MG-01",
+    country: "India",
+    state: "Meghalaya",
+    district: "East Khasi Hills",
+    tehsil: "Sohra",
+    village: "Nohkalikai / Sohra Sector",
+    ward: "Ward 1",
+    region: "Hilly Region Sector",
+    type: "Flash Flood",
+    severity: "High",
+    warningLevel: "WARNING",
+    riskScore: 82,
+    leadTimeMinutes: 40,
+    sensorMode: "Real-Time Multi-Source IoT Fusion",
+    location: {
+      lat: 25.2986,
+      lng: 91.7324,
+      address: "Sohra High-Volume Catchment Plain",
+      city: "Cherrapunji / Sohra",
+      state: "Meghalaya",
+      country: "India"
+    },
+    affectedPopulation: 4100,
+    affectedAreaKm2: 10.5,
+    roadAccessibilityPercent: 60,
+    waterCoverageBeforeKm2: 2.5,
+    waterCoverageAfterKm2: 7.5,
+    waterExpansionPercent: 200.0,
+    slopeAngleDegrees: 28,
+    slopeStabilityIndex: 0.62,
+    historicalLandslideCount: 4,
+    iotStatus: "WARNING",
+    evacuationReadiness: "STANDBY FOR EVACUATION",
+    safeShelter: {
+      id: "SHELTER-MG01",
+      name: "Sohra Community Higher Elevation Hall",
+      distanceKm: 2.1,
+      travelTimeMinutes: 12,
+      capacity: 1000
+    },
+    satelliteSource: "Sentinel-2 MSI",
+    satelliteObservationDate: "2026-08-30",
+    status: "Active",
+    description: "Monsoonal deluge causing high velocity overland runoff and flash flooding across lower valley settlements.",
+    environmentalData: {
+      rainfallMm: 180.0,
+      riverLevelM: 4.8,
+      soilSaturationPercent: 91,
+      windSpeedKmph: 40,
+      slopeDegrees: 28,
+      temperatureC: 21,
+      sensorSource: "High-Volume Pluviometer #MG-CP01"
+    },
+    suggestedRequirements: {
+      waterKits: 410,
+      foodKits: 300,
+      ambulances: 3,
+      rescueTeams: 4,
+      boats: 1,
+      medicalKits: 250
+    },
+    createdAt: new Date(Date.now() - 7200000).toISOString()
+  },
+
+  // ==========================================
+  // NEPAL & GLOBAL SCENARIOS (PRESERVED)
   // ==========================================
   {
     id: "zone-nepal-1",
@@ -28,7 +372,7 @@ export const initialDisasters = [
     satelliteSource: "Sentinel-1 SAR",
     satelliteObservationDate: "2026-08-29",
     status: "Active",
-    description: "Monsoonal flash flooding and severe cloudburst over Kathmandu Valley caused rapid overflowing of the Bagmati river. Submerged low-lying riverside corridors.",
+    description: "Monsoonal flash flooding and severe cloudburst over Kathmandu Valley caused rapid overflowing of the Bagmati river.",
     environmentalData: {
       rainfallMm: 195.0,
       riverLevelM: 4.9,
@@ -47,1087 +391,304 @@ export const initialDisasters = [
       medicalKits: 350
     },
     createdAt: new Date().toISOString()
-  },
-  {
-    id: "zone-nepal-2",
-    name: "Pokhara Seti Gorge Landslide Corridor",
-    code: "ZONE NP-2",
-    country: "Nepal",
-    region: "Gandaki Province",
-    type: "Landslide",
-    severity: "High",
-    riskScore: 78,
-    sensorMode: "Environmental Sensor Mode",
-    location: {
-      lat: 28.2096,
-      lng: 83.9856,
-      address: "Seti River Gorge Mountain Pass",
-      city: "Pokhara",
-      country: "Nepal"
-    },
-    affectedPopulation: 3200,
-    affectedAreaKm2: 6.4,
-    roadAccessibilityPercent: 45,
-    waterCoverageBeforeKm2: 0.8,
-    waterCoverageAfterKm2: 1.4,
-    waterExpansionPercent: 75.0,
-    satelliteSource: "Sentinel-2 MSI",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Slope destabilization and debris flow blocking access to highland settlements following prolonged precipitation.",
-    environmentalData: {
-      rainfallMm: 210.0,
-      riverLevelM: 3.2,
-      soilSaturationPercent: 98,
-      windSpeedKmph: 28,
-      slopeDegrees: 42,
-      temperatureC: 19,
-      sensorSource: "Geotechnical Slope Inclinometer #NP-PK04"
-    },
-    suggestedRequirements: {
-      waterKits: 320,
-      foodKits: 250,
-      ambulances: 2,
-      rescueTeams: 4,
-      boats: 0,
-      medicalKits: 200
-    },
-    createdAt: new Date(Date.now() - 3600000).toISOString()
-  },
-  {
-    id: "zone-nepal-3",
-    name: "Biratnagar Koshi Basin Floodplain",
-    code: "ZONE NP-3",
-    country: "Nepal",
-    region: "Koshi Province",
-    type: "Flood",
-    severity: "Moderate",
-    riskScore: 58,
-    sensorMode: "IoT Water-Level Sensor Mode",
-    location: {
-      lat: 26.4525,
-      lng: 87.2718,
-      address: "Saptakoshi Embankment Overflow Area",
-      city: "Biratnagar",
-      country: "Nepal"
-    },
-    affectedPopulation: 1800,
-    affectedAreaKm2: 3.8,
-    roadAccessibilityPercent: 68,
-    waterCoverageBeforeKm2: 0.9,
-    waterCoverageAfterKm2: 2.7,
-    waterExpansionPercent: 200.0,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Agricultural inundation and eastern boundary road submersion following embankment overflow.",
-    environmentalData: {
-      rainfallMm: 110.0,
-      riverLevelM: 2.8,
-      soilSaturationPercent: 82,
-      windSpeedKmph: 25,
-      slopeDegrees: 4,
-      temperatureC: 28,
-      sensorSource: "Ultrasonic River Gauge #NP-KS09"
-    },
-    suggestedRequirements: {
-      waterKits: 180,
-      foodKits: 120,
-      ambulances: 1,
-      rescueTeams: 2,
-      boats: 1,
-      medicalKits: 90
-    },
-    createdAt: new Date(Date.now() - 7200000).toISOString()
-  },
-  {
-    id: "zone-nepal-4",
-    name: "Langtang Mountain Forest Fire Sector",
-    code: "ZONE NP-4",
-    country: "Nepal",
-    region: "Bagmati Province",
-    type: "Wildfire",
-    severity: "Moderate",
-    riskScore: 62,
-    sensorMode: "Weather Sensor Mode",
-    location: {
-      lat: 28.1750,
-      lng: 85.5500,
-      address: "Langtang Ridge Forest Sector",
-      city: "Rasuwa",
-      country: "Nepal"
-    },
-    affectedPopulation: 1400,
-    affectedAreaKm2: 5.1,
-    roadAccessibilityPercent: 50,
-    waterCoverageBeforeKm2: 0.1,
-    waterCoverageAfterKm2: 0.1,
-    waterExpansionPercent: 0,
-    satelliteSource: "VIIRS Thermal Anomalies",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Dry season mountain ridge brush fire spreading under high valley winds. Approaching foothill villages.",
-    environmentalData: {
-      rainfallMm: 0.0,
-      riverLevelM: 0.8,
-      soilSaturationPercent: 18,
-      windSpeedKmph: 52,
-      slopeDegrees: 35,
-      temperatureC: 31,
-      sensorSource: "Thermal Met-Station #NP-LT02"
-    },
-    suggestedRequirements: {
-      waterKits: 150,
-      foodKits: 100,
-      ambulances: 2,
-      rescueTeams: 3,
-      boats: 0,
-      medicalKits: 120
-    },
-    createdAt: new Date(Date.now() - 10800000).toISOString()
-  },
+  }
+];
 
-  // ==========================================
-  // INDIA SCENARIOS
-  // ==========================================
+export const initialSensors = [
   {
-    id: "zone-india-1",
-    name: "Chennai Marina Coastal Basin",
-    code: "ZONE IN-1",
-    country: "India",
-    region: "Tamil Nadu",
-    type: "Flood",
+    id: "RAIN-UK01",
+    name: "Joshimath Heights Rain Gauge",
+    type: "Rain Gauge",
+    village: "Joshimath Ward 4 & 5",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    value: 112.5,
+    unit: "mm/hr",
+    status: "CRITICAL",
+    batteryPercent: 92,
+    signalStrengthPercent: 98,
+    lastUpdated: "Just now"
+  },
+  {
+    id: "SOIL-UK01",
+    name: "Joshimath Slope Moisture Probe",
+    type: "Soil Moisture",
+    village: "Joshimath Ward 4 & 5",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    value: 89,
+    unit: "%",
+    status: "CRITICAL",
+    batteryPercent: 88,
+    signalStrengthPercent: 95,
+    lastUpdated: "Just now"
+  },
+  {
+    id: "SLOPE-UK01",
+    name: "Joshimath Geotechnical Inclinometer",
+    type: "Slope Stability",
+    village: "Joshimath Ward 4 & 5",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    value: 0.42,
+    unit: "Index",
+    status: "WARNING",
+    batteryPercent: 85,
+    signalStrengthPercent: 90,
+    lastUpdated: "2 mins ago"
+  },
+  {
+    id: "WATER-UK02",
+    name: "Alaknanda Hydrostatic Level Gauge",
+    type: "Water Level",
+    village: "Joshimath Ward 4 & 5",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    value: 5.8,
+    unit: "meters",
+    status: "CRITICAL",
+    batteryPercent: 96,
+    signalStrengthPercent: 99,
+    lastUpdated: "Just now"
+  },
+  {
+    id: "RAIN-HP01",
+    name: "Kullu Solang Catchment Pluviometer",
+    type: "Rain Gauge",
+    village: "Solang Nallah & Palchan",
+    district: "Kullu",
+    state: "Himachal Pradesh",
+    value: 95.0,
+    unit: "mm/hr",
+    status: "WARNING",
+    batteryPercent: 90,
+    signalStrengthPercent: 94,
+    lastUpdated: "1 min ago"
+  },
+  {
+    id: "SOIL-HP01",
+    name: "Palchan Forest Moisture Sensor",
+    type: "Soil Moisture",
+    village: "Solang Nallah & Palchan",
+    district: "Kullu",
+    state: "Himachal Pradesh",
+    value: 84,
+    unit: "%",
+    status: "ONLINE",
+    batteryPercent: 91,
+    signalStrengthPercent: 96,
+    lastUpdated: "3 mins ago"
+  },
+  {
+    id: "RAIN-SK01",
+    name: "Lachen Teesta High Altitude Pluviometer",
+    type: "Rain Gauge",
+    village: "Lachen Valley / Chungthang",
+    district: "North Sikkim",
+    state: "Sikkim",
+    value: 145.0,
+    unit: "mm/hr",
+    status: "CRITICAL",
+    batteryPercent: 84,
+    signalStrengthPercent: 89,
+    lastUpdated: "Just now"
+  },
+  {
+    id: "WATER-SK01",
+    name: "Teesta Stage III Flash Surge Radar",
+    type: "Water Level",
+    village: "Lachen Valley / Chungthang",
+    district: "North Sikkim",
+    state: "Sikkim",
+    value: 7.8,
+    unit: "meters",
+    status: "CRITICAL",
+    batteryPercent: 87,
+    signalStrengthPercent: 91,
+    lastUpdated: "Just now"
+  }
+];
+
+export const initialHistoricalEvents = [
+  {
+    id: "HIST-2023-UK01",
+    title: "Joshimath Landslide & Subsidence Crisis",
+    date: "2023-01-05",
+    hazardType: "Landslide",
+    state: "Uttarakhand",
+    district: "Chamoli",
+    location: "Joshimath Town & Marwari Corridor",
     severity: "Critical",
-    riskScore: 89,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: 13.0475,
-      lng: 80.2824,
-      address: "Marina Lowland Coastal Drainage Sector",
-      city: "Chennai",
-      country: "India"
-    },
-    affectedPopulation: 7600,
-    affectedAreaKm2: 10.5,
-    roadAccessibilityPercent: 42,
-    waterCoverageBeforeKm2: 2.8,
-    waterCoverageAfterKm2: 10.5,
-    waterExpansionPercent: 275.0,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Northeast monsoon surge and coastal drainage bottleneck inundating urban lowlands.",
-    environmentalData: {
-      rainfallMm: 175.0,
-      riverLevelM: 4.4,
-      soilSaturationPercent: 94,
-      windSpeedKmph: 45,
-      slopeDegrees: 2,
-      temperatureC: 27,
-      sensorSource: "Smart City Stormwater Array #IN-CH01"
-    },
-    suggestedRequirements: {
-      waterKits: 760,
-      foodKits: 450,
-      ambulances: 3,
-      rescueTeams: 4,
-      boats: 2,
-      medicalKits: 300
-    },
-    createdAt: new Date(Date.now() - 14400000).toISOString()
+    rainfallMm: 142.0,
+    affectedPopulation: 5200,
+    description: "Widespread slope instability and subterranean water seepage causing rapid ground subsidence and building structural failures."
   },
   {
-    id: "zone-india-2",
-    name: "Kerala Idukki Highland Landslide Sector",
-    code: "ZONE IN-2",
-    country: "India",
-    region: "Kerala",
-    type: "Landslide",
-    severity: "High",
-    riskScore: 78,
-    sensorMode: "Environmental Sensor Mode",
-    location: {
-      lat: 9.8494,
-      lng: 76.9804,
-      address: "Western Ghats Mountain Pass Slope 4",
-      city: "Idukki",
-      country: "India"
-    },
-    affectedPopulation: 2100,
-    affectedAreaKm2: 4.2,
-    roadAccessibilityPercent: 48,
-    waterCoverageBeforeKm2: 0.3,
-    waterCoverageAfterKm2: 0.9,
-    waterExpansionPercent: 200.0,
-    satelliteSource: "Sentinel-2 Multispectral",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Slope instability and debris flow blocking access to hill communities after 48h non-stop monsoon downpours.",
-    environmentalData: {
-      rainfallMm: 210.0,
-      riverLevelM: 2.1,
-      soilSaturationPercent: 98,
-      windSpeedKmph: 35,
-      slopeDegrees: 48,
-      temperatureC: 20,
-      sensorSource: "Ghats Soil Pore Pressure Probe #IN-KL03"
-    },
-    suggestedRequirements: {
-      waterKits: 250,
-      foodKits: 180,
-      ambulances: 2,
-      rescueTeams: 3,
-      boats: 0,
-      medicalKits: 150
-    },
-    createdAt: new Date(Date.now() - 18000000).toISOString()
-  },
-  {
-    id: "zone-india-3",
-    name: "Odisha Coastal Cyclone Superstorm Basin",
-    code: "ZONE IN-3",
-    country: "India",
-    region: "Odisha",
-    type: "Cyclone",
+    id: "HIST-2023-HP01",
+    title: "Beas River Monsoon Flash Flood Deluge",
+    date: "2023-07-09",
+    hazardType: "Flash Flood",
+    state: "Himachal Pradesh",
+    district: "Kullu",
+    location: "Manali - Kullu Beas River Valley",
     severity: "Critical",
-    riskScore: 91,
-    sensorMode: "Weather Sensor Mode",
-    location: {
-      lat: 19.8135,
-      lng: 85.8312,
-      address: "Puri Coastal Inundation Sector",
-      city: "Puri",
-      country: "India"
-    },
-    affectedPopulation: 9500,
-    affectedAreaKm2: 13.8,
-    roadAccessibilityPercent: 32,
-    waterCoverageBeforeKm2: 3.5,
-    waterCoverageAfterKm2: 12.8,
-    waterExpansionPercent: 265.7,
-    satelliteSource: "Sentinel-1 SAR / INSAT-3D",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Category 4 tropical cyclone landfall causing 3.8m storm surge across low-lying coastal estuaries.",
-    environmentalData: {
-      rainfallMm: 240.0,
-      riverLevelM: 5.1,
-      soilSaturationPercent: 96,
-      windSpeedKmph: 145,
-      slopeDegrees: 1,
-      temperatureC: 25,
-      sensorSource: "Doppler Weather Radar Paradip #IN-OD01"
-    },
-    suggestedRequirements: {
-      waterKits: 950,
-      foodKits: 600,
-      ambulances: 4,
-      rescueTeams: 6,
-      boats: 3,
-      medicalKits: 400
-    },
-    createdAt: new Date(Date.now() - 21600000).toISOString()
+    rainfallMm: 185.0,
+    affectedPopulation: 12400,
+    description: "Record cloudburst rainfall causing catastrophic river surge washing over NH-3 highways and urban market plazas."
   },
-
-  // ==========================================
-  // UNITED STATES SCENARIOS
-  // ==========================================
   {
-    id: "zone-usa-1",
-    name: "Tampa Bay Coastal Hurricane Surge Zone",
-    code: "ZONE US-1",
-    country: "United States",
-    region: "Florida",
-    type: "Cyclone",
+    id: "HIST-2023-SK01",
+    title: "South Lhonak GLOF Teesta Dam Breach",
+    date: "2023-10-04",
+    hazardType: "Flash Flood",
+    state: "Sikkim",
+    district: "North Sikkim",
+    location: "Chungthang & Lachen Valley",
     severity: "Critical",
-    riskScore: 94,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: 27.9506,
-      lng: -82.4572,
-      address: "Hillsborough Bay Barrier Coastal Zone",
-      city: "Tampa",
-      country: "United States"
-    },
-    affectedPopulation: 9200,
-    affectedAreaKm2: 14.5,
-    roadAccessibilityPercent: 35,
-    waterCoverageBeforeKm2: 4.2,
-    waterCoverageAfterKm2: 14.5,
-    waterExpansionPercent: 245.2,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Category 4 hurricane storm surge penetrating 4km inland. Major bridges closed, extensive barrier island inundation.",
-    environmentalData: {
-      rainfallMm: 225.0,
-      riverLevelM: 5.2,
-      soilSaturationPercent: 96,
-      windSpeedKmph: 130,
-      slopeDegrees: 1,
-      temperatureC: 28,
-      sensorSource: "NOAA Coastal Buoy #US-FL42"
-    },
-    suggestedRequirements: {
-      waterKits: 920,
-      foodKits: 600,
-      ambulances: 5,
-      rescueTeams: 6,
-      boats: 4,
-      medicalKits: 450
-    },
-    createdAt: new Date(Date.now() - 25200000).toISOString()
+    rainfallMm: 165.0,
+    affectedPopulation: 8500,
+    description: "Glacial lake outburst flood triggering massive surge along Teesta river, destroying Teesta Stage III dam infrastructure."
   },
   {
-    id: "zone-usa-2",
-    name: "California Sierra Foothills Wildfire Complex",
-    code: "ZONE US-2",
-    country: "United States",
-    region: "California",
-    type: "Wildfire",
+    id: "HIST-2021-UK02",
+    title: "Rishiganga Glacier Breach & Flash Flood",
+    date: "2021-02-07",
+    hazardType: "Flash Flood & Landslide",
+    state: "Uttarakhand",
+    district: "Chamoli",
+    location: "Raini & Tapovan Gorge",
     severity: "Critical",
-    riskScore: 90,
-    sensorMode: "Weather Sensor Mode",
-    location: {
-      lat: 37.7749,
-      lng: -119.5383,
-      address: "Sierra National Forest Pine Ridge",
-      city: "Mariposa",
-      country: "United States"
-    },
-    affectedPopulation: 6800,
-    affectedAreaKm2: 18.2,
-    roadAccessibilityPercent: 40,
-    waterCoverageBeforeKm2: 0.2,
-    waterCoverageAfterKm2: 0.2,
-    waterExpansionPercent: 0,
-    satelliteSource: "GOES-16 Fire Detection & VIIRS",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Fast-moving brush and timber fire driven by 60mph Diablo gusts. Dense smoke plumes obstructing mountain escape routes.",
-    environmentalData: {
-      rainfallMm: 0.0,
-      riverLevelM: 0.4,
-      soilSaturationPercent: 12,
-      windSpeedKmph: 85,
-      slopeDegrees: 38,
-      temperatureC: 38,
-      sensorSource: "CalFire Remote Automated Weather Station #US-CA08"
-    },
-    suggestedRequirements: {
-      waterKits: 700,
-      foodKits: 450,
-      ambulances: 4,
-      rescueTeams: 5,
-      boats: 0,
-      medicalKits: 350
-    },
-    createdAt: new Date(Date.now() - 28800000).toISOString()
-  },
+    rainfallMm: 98.0,
+    affectedPopulation: 3400,
+    description: "Rock ice avalanche into Rishiganga river creating massive flood wave downstream."
+  }
+];
 
-  // ==========================================
-  // JAPAN SCENARIOS
-  // ==========================================
+export const initialShelters = [
   {
-    id: "zone-japan-1",
-    name: "Tokyo Arakawa River Inundation Sector",
-    code: "ZONE JP-1",
-    country: "Japan",
-    region: "Kanto",
-    type: "Flood",
-    severity: "High",
-    riskScore: 81,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: 35.7350,
-      lng: 139.8100,
-      address: "Arakawa Lowland Floodplain District",
-      city: "Tokyo",
-      country: "Japan"
-    },
-    affectedPopulation: 5800,
-    affectedAreaKm2: 7.6,
-    roadAccessibilityPercent: 60,
-    waterCoverageBeforeKm2: 2.1,
-    waterCoverageAfterKm2: 7.6,
-    waterExpansionPercent: 261.9,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Typhoon storm surge causing Arakawa drainage overflow. High-density urban wards experiencing localized basement and road flooding.",
-    environmentalData: {
-      rainfallMm: 160.0,
-      riverLevelM: 4.1,
-      soilSaturationPercent: 89,
-      windSpeedKmph: 65,
-      slopeDegrees: 2,
-      temperatureC: 24,
-      sensorSource: "JMA Automated River Telemetry #JP-TK01"
-    },
-    suggestedRequirements: {
-      waterKits: 580,
-      foodKits: 350,
-      ambulances: 4,
-      rescueTeams: 3,
-      boats: 2,
-      medicalKits: 280
-    },
-    createdAt: new Date(Date.now() - 32400000).toISOString()
-  },
-
-  // ==========================================
-  // EUROPE SCENARIOS
-  // ==========================================
-  {
-    id: "zone-europe-1",
-    name: "Rhine River Basin Urban Flood Corridor",
-    code: "ZONE EU-1",
-    country: "Germany",
-    region: "North Rhine-Westphalia",
-    type: "Flood",
-    severity: "High",
-    riskScore: 84,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: 50.9375,
-      lng: 6.9603,
-      address: "Rhine Lowland Urban Sector",
-      city: "Cologne",
-      country: "Germany"
-    },
-    affectedPopulation: 6400,
-    affectedAreaKm2: 9.2,
-    roadAccessibilityPercent: 55,
-    waterCoverageBeforeKm2: 2.5,
-    waterCoverageAfterKm2: 9.2,
-    waterExpansionPercent: 268.0,
-    satelliteSource: "Sentinel-1 C-SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Unprecedented summer downpours caused the Rhine to breach containment walls, inundating commercial and residential sectors.",
-    environmentalData: {
-      rainfallMm: 165.0,
-      riverLevelM: 6.2,
-      soilSaturationPercent: 92,
-      windSpeedKmph: 40,
-      slopeDegrees: 3,
-      temperatureC: 18,
-      sensorSource: "Federal Hydrological Telemetry #DE-RH01"
-    },
-    suggestedRequirements: {
-      waterKits: 640,
-      foodKits: 400,
-      ambulances: 4,
-      rescueTeams: 4,
-      boats: 3,
-      medicalKits: 300
-    },
-    createdAt: new Date(Date.now() - 35000000).toISOString()
+    id: "SHELTER-UK01",
+    name: "Joshimath High Ground Refuge Dome",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    village: "Joshimath Ward 4 & 5",
+    elevationM: 2100,
+    capacity: 800,
+    currentOccupancy: 120,
+    distanceKm: 2.4,
+    travelTimeMinutes: 14,
+    recommendedRoute: "Joshimath Bypass High-Ground Ridge Road",
+    status: "OPEN"
   },
   {
-    id: "zone-europe-2",
-    name: "Aosta Valley Alpine Debris Slip Zone",
-    code: "ZONE EU-2",
-    country: "Italy",
-    region: "Aosta Valley",
-    type: "Landslide",
-    severity: "High",
-    riskScore: 79,
-    sensorMode: "Environmental Sensor Mode",
-    location: {
-      lat: 45.7370,
-      lng: 7.3201,
-      address: "Alpine Pass Corridor 12",
-      city: "Aosta",
-      country: "Italy"
-    },
-    affectedPopulation: 2400,
-    affectedAreaKm2: 5.1,
-    roadAccessibilityPercent: 38,
-    waterCoverageBeforeKm2: 0.4,
-    waterCoverageAfterKm2: 1.1,
-    waterExpansionPercent: 175.0,
-    satelliteSource: "Sentinel-2 InSAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Glacial melt and heavy rain caused high-altitude rockfall and mudslides, blocking mountain transit.",
-    environmentalData: {
-      rainfallMm: 140.0,
-      riverLevelM: 2.4,
-      soilSaturationPercent: 95,
-      windSpeedKmph: 30,
-      slopeDegrees: 52,
-      temperatureC: 12,
-      sensorSource: "Alpine Geotechnical Seismic Sensor #IT-AV05"
-    },
-    suggestedRequirements: {
-      waterKits: 240,
-      foodKits: 180,
-      ambulances: 2,
-      rescueTeams: 4,
-      boats: 0,
-      medicalKits: 180
-    },
-    createdAt: new Date(Date.now() - 38000000).toISOString()
+    id: "SHELTER-UK02",
+    name: "Pipalkoti NDRF High Ground Staging Camp",
+    district: "Chamoli",
+    state: "Uttarakhand",
+    village: "Gaurikund / Rambara Corridor",
+    elevationM: 1450,
+    capacity: 1500,
+    currentOccupancy: 340,
+    distanceKm: 8.1,
+    travelTimeMinutes: 32,
+    recommendedRoute: "Helipad Access Road 2",
+    status: "OPEN"
   },
-
-  // ==========================================
-  // SOUTH AMERICA SCENARIOS
-  // ==========================================
   {
-    id: "zone-brazil-1",
-    name: "Amazon Solimões River Basin Inundation",
-    code: "ZONE SA-1",
-    country: "Brazil",
-    region: "Amazonas",
-    type: "Flood",
-    severity: "Critical",
-    riskScore: 93,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: -3.1190,
-      lng: -60.0217,
-      address: "Solimões Floodplain Riverside Sector",
-      city: "Manaus",
-      country: "Brazil"
-    },
-    affectedPopulation: 11200,
-    affectedAreaKm2: 24.5,
-    roadAccessibilityPercent: 25,
-    waterCoverageBeforeKm2: 8.5,
-    waterCoverageAfterKm2: 24.5,
-    waterExpansionPercent: 188.2,
-    satelliteSource: "Sentinel-1 SAR Radar",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Severe tropical rain belt expansion caused historical Amazon flooding, isolating riverbank indigenous settlements.",
-    environmentalData: {
-      rainfallMm: 310.0,
-      riverLevelM: 8.4,
-      soilSaturationPercent: 99,
-      windSpeedKmph: 35,
-      slopeDegrees: 1,
-      temperatureC: 30,
-      sensorSource: "Amazon Hydro-Radar Probe #BR-MN01"
-    },
-    suggestedRequirements: {
-      waterKits: 1120,
-      foodKits: 800,
-      ambulances: 3,
-      rescueTeams: 6,
-      boats: 8,
-      medicalKits: 600
-    },
-    createdAt: new Date(Date.now() - 41000000).toISOString()
+    id: "SHELTER-HP01",
+    name: "Kullu Indoor Sports Complex Refuge Center",
+    district: "Kullu",
+    state: "Himachal Pradesh",
+    village: "Solang Nallah & Palchan",
+    elevationM: 1280,
+    capacity: 1200,
+    currentOccupancy: 210,
+    distanceKm: 3.5,
+    travelTimeMinutes: 18,
+    recommendedRoute: "Left Bank Bypass Highway",
+    status: "OPEN"
   },
-
-  // ==========================================
-  // AFRICA SCENARIOS
-  // ==========================================
   {
-    id: "zone-africa-1",
-    name: "Sofala Coastal Storm Surge & Estuary Flood",
-    code: "ZONE AF-1",
-    country: "Mozambique",
-    region: "Sofala Province",
-    type: "Cyclone",
-    severity: "Critical",
-    riskScore: 95,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: -19.8436,
-      lng: 34.8389,
-      address: "Pungwe River Coastal Estuary",
-      city: "Beira",
-      country: "Mozambique"
-    },
-    affectedPopulation: 12500,
-    affectedAreaKm2: 21.0,
-    roadAccessibilityPercent: 20,
-    waterCoverageBeforeKm2: 5.0,
-    waterCoverageAfterKm2: 21.0,
-    waterExpansionPercent: 320.0,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "Tropical cyclone landfall combined with extreme coastal surge submerged vast coastal agricultural zones.",
-    environmentalData: {
-      rainfallMm: 280.0,
-      riverLevelM: 6.8,
-      soilSaturationPercent: 98,
-      windSpeedKmph: 155,
-      slopeDegrees: 1,
-      temperatureC: 29,
-      sensorSource: "Mozambique Disaster Telemetry #MZ-SO02"
-    },
-    suggestedRequirements: {
-      waterKits: 1250,
-      foodKits: 900,
-      ambulances: 4,
-      rescueTeams: 8,
-      boats: 7,
-      medicalKits: 700
-    },
-    createdAt: new Date(Date.now() - 44000000).toISOString()
-  },
-
-  // ==========================================
-  // OCEANIA SCENARIOS
-  // ==========================================
-  {
-    id: "zone-australia-1",
-    name: "Queensland Fitzroy Basin Flood Corridor",
-    code: "ZONE OC-1",
-    country: "Australia",
-    region: "Queensland",
-    type: "Flood",
-    severity: "High",
-    riskScore: 82,
-    sensorMode: "Real-Time Satellite Mode",
-    location: {
-      lat: -23.3750,
-      lng: 150.5100,
-      address: "Fitzroy River Catchment Sector",
-      city: "Rockhampton",
-      country: "Australia"
-    },
-    affectedPopulation: 4800,
-    affectedAreaKm2: 12.4,
-    roadAccessibilityPercent: 50,
-    waterCoverageBeforeKm2: 3.1,
-    waterCoverageAfterKm2: 12.4,
-    waterExpansionPercent: 300.0,
-    satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-29",
-    status: "Active",
-    description: "La Niña monsoon trough created extensive riverine flooding, cutting off regional highway corridors.",
-    environmentalData: {
-      rainfallMm: 205.0,
-      riverLevelM: 7.1,
-      soilSaturationPercent: 91,
-      windSpeedKmph: 50,
-      slopeDegrees: 2,
-      temperatureC: 26,
-      sensorSource: "Bureau of Meteorology Telemetry #AU-QLD09"
-    },
-    suggestedRequirements: {
-      waterKits: 480,
-      foodKits: 350,
-      ambulances: 3,
-      rescueTeams: 4,
-      boats: 4,
-      medicalKits: 250
-    },
-    createdAt: new Date(Date.now() - 47000000).toISOString()
+    id: "SHELTER-SK01",
+    name: "Chungthang High Ground Battalion Shelter",
+    district: "North Sikkim",
+    state: "Sikkim",
+    village: "Lachen Valley / Chungthang",
+    elevationM: 1750,
+    capacity: 600,
+    currentOccupancy: 85,
+    distanceKm: 4.2,
+    travelTimeMinutes: 22,
+    recommendedRoute: "Army Ridge Access Footpath",
+    status: "OPEN"
   }
 ];
 
 export const initialFacilities = [
-  // ==========================================
-  // NEPAL REGIONAL FACILITIES
-  // ==========================================
   {
-    id: "fac-np-1",
+    id: "fac-uk-1",
+    name: "NDRF 15th Battalion Logistics Base — Joshimath",
+    code: "HUB-UK01",
+    location: { lat: 30.5600, lng: 79.5700, city: "Joshimath", state: "Uttarakhand", country: "India" },
+    status: "Operational",
+    inventory: { waterKits: 4500, foodKits: 3200, medicalKits: 1400, rescueTeams: 12, ambulances: 8, boats: 4 }
+  },
+  {
+    id: "fac-hp-1",
+    name: "Himachal State Disaster Relief Depot — Kullu",
+    code: "HUB-HP01",
+    location: { lat: 31.9500, lng: 77.1000, city: "Kullu", state: "Himachal Pradesh", country: "India" },
+    status: "Operational",
+    inventory: { waterKits: 3800, foodKits: 2800, medicalKits: 950, rescueTeams: 10, ambulances: 6, boats: 3 }
+  },
+  {
+    id: "fac-sk-1",
+    name: "Sikkim High-Altitude Emergency Depot — Gangtok",
+    code: "HUB-SK01",
+    location: { lat: 27.3300, lng: 88.6100, city: "Gangtok", state: "Sikkim", country: "India" },
+    status: "Operational",
+    inventory: { waterKits: 2500, foodKits: 2000, medicalKits: 800, rescueTeams: 8, ambulances: 5, boats: 4 }
+  },
+  {
+    id: "fac-nepal-1",
     name: "Kathmandu Central Emergency Logistics Hub",
-    type: "Resource Warehouse",
-    country: "Nepal",
-    location: {
-      lat: 27.6980,
-      lng: 85.3150,
-      address: "Tripureshwor Logistics Depo, Kathmandu"
-    },
-    inventory: {
-      waterKits: 600,
-      foodKits: 700,
-      ambulances: 4,
-      rescueTeams: 5,
-      boats: 2,
-      medicalKits: 400
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-np-2",
-    name: "Tribhuvan University Teaching Hospital Disaster Center",
-    type: "Hospital",
-    country: "Nepal",
-    location: {
-      lat: 27.7360,
-      lng: 85.3310,
-      address: "Maharajgunj Medical Campus, Kathmandu"
-    },
-    inventory: {
-      waterKits: 150,
-      foodKits: 100,
-      ambulances: 5,
-      rescueTeams: 1,
-      boats: 0,
-      medicalKits: 800
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-np-3",
-    name: "Bagmati Marine & Swiftwater Rescue Station",
-    type: "Rescue Station",
-    country: "Nepal",
-    location: {
-      lat: 27.6850,
-      lng: 85.3400,
-      address: "Balkhu Riverfront Quick-Response Unit"
-    },
-    inventory: {
-      waterKits: 100,
-      foodKits: 100,
-      ambulances: 1,
-      rescueTeams: 6,
-      boats: 4,
-      medicalKits: 150
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-np-4",
-    name: "Lalitpur Civic Ambulance Station Alpha",
-    type: "Ambulance Station",
-    country: "Nepal",
-    location: {
-      lat: 27.6680,
-      lng: 85.3210,
-      address: "Patan Rapid Medical Dispatch Post"
-    },
-    inventory: {
-      waterKits: 80,
-      foodKits: 50,
-      ambulances: 6,
-      rescueTeams: 0,
-      boats: 0,
-      medicalKits: 300
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-np-5",
-    name: "Pokhara Regional Disaster Warehouse",
-    type: "Resource Warehouse",
-    country: "Nepal",
-    location: {
-      lat: 28.2150,
-      lng: 83.9920,
-      address: "Lakeside Emergency Logistics Depo, Pokhara"
-    },
-    inventory: {
-      waterKits: 450,
-      foodKits: 350,
-      ambulances: 3,
-      rescueTeams: 4,
-      boats: 2,
-      medicalKits: 250
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-np-6",
-    name: "Biratnagar Eastern Regional Relief Base",
-    type: "Emergency Center",
-    country: "Nepal",
-    location: {
-      lat: 26.4600,
-      lng: 87.2800,
-      address: "Koshi Highway Emergency Supply Hub"
-    },
-    inventory: {
-      waterKits: 300,
-      foodKits: 250,
-      ambulances: 2,
-      rescueTeams: 3,
-      boats: 2,
-      medicalKits: 200
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // INDIA REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-in-1",
-    name: "Chennai Metro Central Relief Warehouse",
-    type: "Resource Warehouse",
-    country: "India",
-    location: {
-      lat: 13.0600,
-      lng: 80.2400,
-      address: "Grand Logistics Park, Central Hub, Chennai"
-    },
-    inventory: {
-      waterKits: 800,
-      foodKits: 600,
-      ambulances: 4,
-      rescueTeams: 5,
-      boats: 3,
-      medicalKits: 500
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-in-2",
-    name: "Tamil Nadu Regional Trauma Center",
-    type: "Hospital",
-    country: "India",
-    location: {
-      lat: 13.0750,
-      lng: 80.2600,
-      address: "Metro Central Medical Campus, Chennai"
-    },
-    inventory: {
-      waterKits: 200,
-      foodKits: 150,
-      ambulances: 6,
-      rescueTeams: 1,
-      boats: 0,
-      medicalKits: 900
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-in-3",
-    name: "Kochi Marine Emergency Hub",
-    type: "Rescue Station",
-    country: "India",
-    location: {
-      lat: 9.9312,
-      lng: 76.2673,
-      address: "Port Emergency Response Base, Kochi"
-    },
-    inventory: {
-      waterKits: 400,
-      foodKits: 300,
-      ambulances: 3,
-      rescueTeams: 6,
-      boats: 5,
-      medicalKits: 300
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-in-4",
-    name: "Bhubaneswar Cyclone Emergency Logistics Center",
-    type: "Emergency Center",
-    country: "India",
-    location: {
-      lat: 20.2961,
-      lng: 85.8245,
-      address: "State Disaster Management Staging Depo, Bhubaneswar"
-    },
-    inventory: {
-      waterKits: 1000,
-      foodKits: 800,
-      ambulances: 5,
-      rescueTeams: 8,
-      boats: 4,
-      medicalKits: 600
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // JAPAN REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-jp-1",
-    name: "Tokyo Disaster Prevention Center",
-    type: "Resource Warehouse",
-    country: "Japan",
-    location: {
-      lat: 35.6895,
-      lng: 139.6917,
-      address: "Shinjuku Emergency Logistics Terminal, Tokyo"
-    },
-    inventory: {
-      waterKits: 900,
-      foodKits: 750,
-      ambulances: 5,
-      rescueTeams: 6,
-      boats: 3,
-      medicalKits: 600
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // USA REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-us-1",
-    name: "Tampa Bay FEMA Regional Logistics Staging Depot",
-    type: "Resource Warehouse",
-    country: "United States",
-    location: {
-      lat: 27.9650,
-      lng: -82.4400,
-      address: "East Tampa Emergency Logistics Base, FL"
-    },
-    inventory: {
-      waterKits: 1200,
-      foodKits: 1000,
-      ambulances: 6,
-      rescueTeams: 8,
-      boats: 6,
-      medicalKits: 800
-    },
-    status: "Operational"
-  },
-  {
-    id: "fac-us-2",
-    name: "Central California Wildfire Response Station",
-    type: "Rescue Station",
-    country: "United States",
-    location: {
-      lat: 37.8000,
-      lng: -119.5000,
-      address: "Yosemite Sierra Incident Command Post, CA"
-    },
-    inventory: {
-      waterKits: 800,
-      foodKits: 600,
-      ambulances: 4,
-      rescueTeams: 8,
-      boats: 0,
-      medicalKits: 500
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // EUROPE REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-eu-1",
-    name: "Frankfurt Central European Relief Warehouse",
-    type: "Resource Warehouse",
-    country: "Germany",
-    location: {
-      lat: 50.1109,
-      lng: 8.6821,
-      address: "Central European Disaster Logistics Hub, Frankfurt"
-    },
-    inventory: {
-      waterKits: 1600,
-      foodKits: 1200,
-      ambulances: 12,
-      rescueTeams: 14,
-      boats: 6,
-      medicalKits: 1100
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // SOUTH AMERICA REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-sa-1",
-    name: "Manaus Amazon Emergency Operations Center",
-    type: "Emergency Center",
-    country: "Brazil",
-    location: {
-      lat: -3.1000,
-      lng: -60.0000,
-      address: "Amazon Basin Logistics Base, Manaus"
-    },
-    inventory: {
-      waterKits: 1800,
-      foodKits: 1300,
-      ambulances: 8,
-      rescueTeams: 12,
-      boats: 14,
-      medicalKits: 1000
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // AFRICA REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-af-1",
-    name: "Nairobi East Africa Relief Command Center",
-    type: "Emergency Center",
-    country: "Kenya",
-    location: {
-      lat: -1.2921,
-      lng: 36.8219,
-      address: "African Mutual Aid Logistics Base, Nairobi"
-    },
-    inventory: {
-      waterKits: 2200,
-      foodKits: 1600,
-      ambulances: 10,
-      rescueTeams: 16,
-      boats: 10,
-      medicalKits: 1300
-    },
-    status: "Operational"
-  },
-
-  // ==========================================
-  // OCEANIA REGIONAL FACILITIES
-  // ==========================================
-  {
-    id: "fac-oc-1",
-    name: "Brisbane Asia-Pacific Disaster Logistics Hub",
-    type: "Resource Warehouse",
-    country: "Australia",
-    location: {
-      lat: -27.4698,
-      lng: 153.0251,
-      address: "Queensland Emergency Logistics Base, Brisbane"
-    },
-    inventory: {
-      waterKits: 1400,
-      foodKits: 1000,
-      ambulances: 10,
-      rescueTeams: 10,
-      boats: 8,
-      medicalKits: 900
-    },
-    status: "Operational"
+    code: "HUB-NP01",
+    location: { lat: 27.7000, lng: 85.3400, city: "Kathmandu", country: "Nepal" },
+    status: "Operational",
+    inventory: { waterKits: 5000, foodKits: 3500, medicalKits: 1200, rescueTeams: 15, ambulances: 8, boats: 4 }
   }
 ];
 
 export const initialResponsePlans = [
   {
-    id: "RP-1024",
-    disasterId: "zone-nepal-1",
-    zoneCode: "ZONE NP-1",
-    disasterName: "Kathmandu Flood Zone — Bagmati River Basin",
-    country: "Nepal",
-    disasterType: "Flood",
-    priorityScore: 94,
+    id: "RP-26192-01",
+    disasterId: "zone-uk-1",
+    zoneCode: "ZONE UK-01",
+    disasterName: "Joshimath Slope Failure & Alaknanda Flash Flood Sector",
+    country: "India",
+    disasterType: "Flash Flood & Landslide",
+    priorityScore: 96,
     status: "Approved",
-    workflowState: "Approved",
-    coverage: 82,
-    resourceUtilization: 91,
-    estimatedResponseTimeMinutes: 18,
+    workflowState: "In Execution",
+    coverage: 88,
+    resourceUtilization: 94,
+    estimatedResponseTimeMinutes: 14,
     allocations: [
-      { resourceType: "ambulances", quantity: 3, unit: "units", sourceFacility: "Lalitpur Civic Ambulance Station Alpha", lat: 27.6680, lng: 85.3210 },
-      { resourceType: "waterKits", quantity: 600, unit: "kits", sourceFacility: "Kathmandu Central Emergency Logistics Hub", lat: 27.6980, lng: 85.3150 },
-      { resourceType: "foodKits", quantity: 500, unit: "kits", sourceFacility: "Kathmandu Central Emergency Logistics Hub", lat: 27.6980, lng: 85.3150 },
-      { resourceType: "rescueTeams", quantity: 4, unit: "teams", sourceFacility: "Bagmati Marine & Swiftwater Rescue Station", lat: 27.6850, lng: 85.3400 },
-      { resourceType: "boats", quantity: 2, unit: "vessels", sourceFacility: "Bagmati Marine & Swiftwater Rescue Station", lat: 27.6850, lng: 85.3400 },
-      { resourceType: "medicalKits", quantity: 350, unit: "kits", sourceFacility: "Tribhuvan University Teaching Hospital", lat: 27.7360, lng: 85.3310 }
+      { resourceType: "ambulances", quantity: 4, unit: "units", sourceFacility: "NDRF 15th Battalion Base", lat: 30.5600, lng: 79.5700 },
+      { resourceType: "waterKits", quantity: 480, unit: "kits", sourceFacility: "NDRF 15th Battalion Base", lat: 30.5600, lng: 79.5700 },
+      { resourceType: "foodKits", quantity: 350, unit: "kits", sourceFacility: "NDRF 15th Battalion Base", lat: 30.5600, lng: 79.5700 },
+      { resourceType: "rescueTeams", quantity: 5, unit: "teams", sourceFacility: "NDRF 15th Battalion Base", lat: 30.5600, lng: 79.5700 },
+      { resourceType: "boats", quantity: 2, unit: "vessels", sourceFacility: "NDRF 15th Battalion Base", lat: 30.5600, lng: 79.5700 },
+      { resourceType: "medicalKits", quantity: 300, unit: "kits", sourceFacility: "Joshimath District Civil Hospital", lat: 30.5500, lng: 79.5600 }
     ],
-    shortages: [
-      { resourceType: "waterKits", required: 840, availableAllocated: 600, shortage: 240, severity: "High", unit: "kits", note: "Kathmandu central depot water filtration supply exhausted. Secondary dispatch requested from Pokhara regional depot." }
-    ],
+    shortages: [],
     explanation: {
-      summary: "Kathmandu Flood Zone (ZONE NP-1) prioritized with 94/100 score due to critical monsoonal inundation, 8,400 vulnerable residents in Bagmati lowlands, +265.6% water expansion, and 40% road accessibility friction.",
+      summary: "Joshimath Sector (ZONE UK-01) prioritized with 96/100 score due to 112.5 mm/hr cloudburst rainfall, 89% soil saturation, 0.42 slope stability index, 4,820 residents exposed, and 28-minute time-to-impact.",
       factors: [
-        { title: "Critical Severity & Threat", score: "+35 pts", detail: "Bagmati river overflow affecting 11.7 km²" },
-        { title: "High Population Exposure", score: "+28 pts", detail: "8,400 individuals in high-risk river basin" },
-        { title: "Severe Water Inundation", score: "+16 pts", detail: "265.6% water expansion detected by Sentinel-1 SAR" },
-        { title: "Reduced Road Accessibility", score: "+15 pts", detail: "40% accessibility requires specialized swiftwater boat units" }
+        { title: "Extreme Rainfall Intensity", score: "+30 pts", detail: "112.5 mm/hr cloudburst exceeding 60 mm/hr threshold" },
+        { title: "Soil Saturation & Moisture", score: "+20 pts", detail: "89% soil saturation reducing shear strength" },
+        { title: "Slope Instability Index", score: "+20 pts", detail: "38° slope angle with 0.42 stability index" },
+        { title: "Historical Vulnerability", score: "+13 pts", detail: "6 previous recorded landslide events" },
+        { title: "Real-Time IoT Trigger", score: "+13 pts", detail: "Critical rain & Alaknanda river level alerts" }
       ]
     },
     createdAt: new Date().toISOString()
