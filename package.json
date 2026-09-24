@@ -1,6 +1,7 @@
 {
   "name": "surver",
   "version": "1.0.0",
+  "type": "module",
   "description": "SURVER — Satellite-Powered AI Emergency Resource Orchestration Network",
   "scripts": {
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
@@ -11,10 +12,17 @@
     "build": "npm --prefix client install && npm --prefix client run build",
     "vercel-build": "npm --prefix client install && npm --prefix client run build"
   },
-  
-  
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
   "devDependencies": {
     "concurrently": "^9.1.2"
   },
   "keywords": ["emergency", "satellite", "ai", "gemini", "disaster-response", "orchestration"]
 }
+
