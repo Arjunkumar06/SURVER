@@ -10,74 +10,119 @@ import {
   Boxes, 
   ClipboardList, 
   BarChart3,
-  Zap,
-  Award
+  Award,
+  X
 } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { name: 'Flash Flood Command', path: '/', icon: LayoutDashboard },
-  { name: 'Village / Ward Risk', path: '/zones', icon: MapPin },
-  { name: 'Live IoT Sensors', path: '/sensors', icon: Cpu },
-  { name: 'Early Warnings', path: '/warnings', icon: ShieldAlert },
-  { name: 'Satellite Intelligence', path: '/satellite', icon: Satellite },
-  { name: 'Historical Intelligence', path: '/history', icon: History },
-  { name: 'Resources & Depots', path: '/resources', icon: Boxes },
-  { name: 'Response Plans', path: '/plans', icon: ClipboardList },
-  { name: 'Analytics', path: '/analytics', icon: BarChart3 },
+const NAV_GROUPS = [
+  {
+    title: 'COMMAND CENTER',
+    items: [
+      { name: 'Flash Flood Command', path: '/', icon: LayoutDashboard },
+      { name: 'Village / Ward Risk', path: '/zones', icon: MapPin },
+    ]
+  },
+  {
+    title: 'EARLY WARNING & INTEL',
+    items: [
+      { name: 'Live IoT Sensors', path: '/sensors', icon: Cpu },
+      { name: 'Early Warnings', path: '/warnings', icon: ShieldAlert },
+      { name: 'Satellite Intelligence', path: '/satellite', icon: Satellite },
+    ]
+  },
+  {
+    title: 'DISASTER RESPONSE',
+    items: [
+      { name: 'Resources & Depots', path: '/resources', icon: Boxes },
+      { name: 'Response Plans', path: '/plans', icon: ClipboardList },
+    ]
+  },
+  {
+    title: 'ANALYTICS & HISTORY',
+    items: [
+      { name: 'Historical Intelligence', path: '/history', icon: History },
+      { name: 'Analytics Benchmarks', path: '/analytics', icon: BarChart3 },
+    ]
+  }
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onCloseMobileNav }) {
   return (
-    <aside className="w-64 bg-[#030712]/90 backdrop-blur-2xl border-r border-white/10 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)] sticky top-16 select-none shadow-[8px_0_32px_0_rgba(0,0,0,0.8)]">
-      {/* Top Nav Links */}
-      <div className="p-3.5 space-y-4 overflow-y-auto">
-        <div className="px-3 py-1.5 border-b border-white/10 flex items-center justify-between font-mono">
-          <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">
-            COMMAND NAVIGATION
+    <>
+      {/* Mobile Drawer Overlay Back-Drop */}
+      {isOpen && (
+        <div 
+          onClick={onCloseMobileNav} 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 md:hidden"
+        />
+      )}
+
+      <aside className={`
+        fixed md:sticky top-16 left-0 z-40 md:z-10
+        w-64 bg-white border-r border-slate-200 
+        flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)] 
+        transition-transform duration-300 ease-in-out shadow-xs
+        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        {/* Top Nav Links */}
+        <div className="p-4 space-y-5 overflow-y-auto">
+          <div className="flex items-center justify-between md:hidden pb-2 border-b border-slate-200">
+            <span className="text-xs font-mono font-bold text-slate-900 uppercase">Navigation</span>
+            <button onClick={onCloseMobileNav} className="p-1 text-slate-500 hover:text-slate-900">
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <span className="h-1.5 w-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
+
+          {NAV_GROUPS.map((group) => (
+            <div key={group.title} className="space-y-1.5">
+              <div className="px-2 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+                <span>{group.title}</span>
+              </div>
+              <nav className="space-y-0.5">
+                {group.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <NavLink
+                      key={item.name}
+                      to={item.path}
+                      onClick={onCloseMobileNav}
+                      className={({ isActive }) =>
+                        `flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-mono font-semibold transition-all ${
+                          isActive
+                            ? 'bg-blue-50 text-blue-700 border border-blue-200 font-extrabold shadow-2xs'
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border border-transparent'
+                        }`
+                      }
+                    >
+                      <Icon className="w-4 h-4 shrink-0 text-blue-600" />
+                      <span className="truncate">{item.name}</span>
+                    </NavLink>
+                  );
+                })}
+              </nav>
+            </div>
+          ))}
         </div>
 
-        <nav className="space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.name}
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'cyber-pill-active font-extrabold text-[#00F0FF] border border-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.4)] bg-[#0B0F19]'
-                      : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B0F19] hover:border-white/20 border border-transparent backdrop-blur-md'
-                  }`
-                }
-              >
-                <Icon className="w-4 h-4 shrink-0 text-[#00F0FF]" />
-                <span className="truncate">{item.name}</span>
-              </NavLink>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* Bottom Info Card */}
-      <div className="p-3.5 border-t border-white/10">
-        <div className="p-3 cyber-card rounded-2xl space-y-2 text-xs">
-          <div className="flex items-center justify-between text-[#F8FAFC] font-bold font-mono">
-            <span className="flex items-center space-x-1.5 text-[11px]">
-              <Award className="w-3.5 h-3.5 text-[#F59E0B]" />
-              <span>SIH 2026 PS-26192</span>
-            </span>
-            <span className="text-[9px] px-1.5 py-0.5 bg-[#0B0F19] text-[#10B981] rounded border border-[#10B981]/50 font-bold">
-              NDRF
-            </span>
+        {/* Bottom Info Card */}
+        <div className="p-3.5 border-t border-slate-200 bg-slate-50/50">
+          <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1.5 text-xs shadow-2xs">
+            <div className="flex items-center justify-between text-slate-900 font-bold font-mono">
+              <span className="flex items-center space-x-1.5 text-[11px]">
+                <ShieldAlert className="w-3.5 h-3.5 text-blue-600" />
+                <span>NDRF EARLY WARNING v2.4</span>
+              </span>
+              <span className="text-[9px] px-1.5 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-200 font-bold">
+                MHA LIVE
+              </span>
+            </div>
+            <p className="text-[10.5px] text-slate-500 leading-tight font-mono">
+              Autonomous multi-source flash flood & landslide defense network.
+            </p>
           </div>
-          <p className="text-[10.5px] text-[#94A3B8] leading-tight font-mono">
-            Hilly region multi-source prediction, early warning & emergency dispatch.
-          </p>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }
+

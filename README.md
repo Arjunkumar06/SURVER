@@ -207,9 +207,9 @@ Open browser at **`http://localhost:5173`**.
 
 ---
 
-## 9. Exact Hackathon Demo Sequence
+## 9. Operational Verification & Command Walkthrough
 
-To demonstrate the complete SURVER pipeline during evaluation:
+To verify the complete SURVER pipeline in the Command Center:
 
 1. **Step 1 — Dashboard Overview**:
    - Open `http://localhost:5173`
@@ -248,4 +248,4 @@ To demonstrate the complete SURVER pipeline during evaluation:
 
 ## 11. License
 
-MIT License. Developed for Hackathons and Emergency Response Research.
+MIT License. Developed for Civil Defense and Emergency Response Operations.

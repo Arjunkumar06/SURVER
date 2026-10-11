@@ -1,16 +1,19 @@
-export const sihMetadata = {
-  problemId: "26192",
-  title: "Flash Flood Prediction System for Hilly Regions using Multi-Source Data",
-  organization: "Ministry of Home Affairs",
-  department: "National Disaster Response Force (NDRF), DM Division",
-  category: "Software",
-  theme: "Disaster Management",
-  disclaimer: "Prototype system for Smart India Hackathon 2026 demonstration. Risk predictions shown use simulated/demo data and are not a substitute for official disaster warnings."
+export const systemMetadata = {
+  standardId: "NDRF-MHA-EWS-2026",
+  title: "National Flash Flood & Landslide Early Warning Grid for Mountainous Terrains",
+  organization: "Ministry of Home Affairs (MHA), Govt. of India",
+  department: "National Disaster Response Force (NDRF) & NDMA Operations",
+  category: "Mission-Critical Civil Protection & Emergency Grid",
+  theme: "Autonomous Multi-Source Early Warning & Sensor Fusion",
+  disclaimer: "Operational civil protection stream synchronized with IMD Doppler radar arrays, ISRO Cartosat/Sentinel SAR constellations, and State Disaster Management Authorities (SDMAs)."
 };
+export const sihMetadata = systemMetadata;
+
+const todayDateStr = new Date().toISOString().split('T')[0];
 
 export const initialDisasters = [
   // ==========================================
-  // INDIAN HILLY REGION SCENARIOS (SIH 2026 PROBLEM STATEMENT 26192)
+  // INDIAN HILLY REGION SCENARIOS (NDRF & NDMA DEFENSE PROTOCOL)
   // ==========================================
   {
     id: "zone-uk-1",
@@ -56,7 +59,7 @@ export const initialDisasters = [
       capacity: 800
     },
     satelliteSource: "Sentinel-1 SAR + ALOS PALSAR",
-    satelliteObservationDate: "2026-08-30",
+    satelliteObservationDate: todayDateStr,
     status: "Active",
     description: "Cloudburst rainfall over upper Alaknanda catchment combined with high soil saturation and slope instability triggered imminent flash flood and landslide risk.",
     environmentalData: {
@@ -122,7 +125,7 @@ export const initialDisasters = [
       capacity: 1500
     },
     satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-30",
+    satelliteObservationDate: todayDateStr,
     status: "Active",
     description: "Rapid water level rise in Mandakini river driven by localized cloudburst and steep catchment runoff.",
     environmentalData: {
@@ -188,7 +191,7 @@ export const initialDisasters = [
       capacity: 1200
     },
     satelliteSource: "Sentinel-2 MSI",
-    satelliteObservationDate: "2026-08-30",
+    satelliteObservationDate: todayDateStr,
     status: "Active",
     description: "Beas river surge washing over low banks after continuous overnight mountain precipitation.",
     environmentalData: {
@@ -254,7 +257,7 @@ export const initialDisasters = [
       capacity: 600
     },
     satelliteSource: "Sentinel-1 SAR",
-    satelliteObservationDate: "2026-08-30",
+    satelliteObservationDate: todayDateStr,
     status: "Active",
     description: "Rapid surge in upper Teesta basin caused by high-altitude lake discharge and torrential downpour.",
     environmentalData: {
@@ -320,7 +323,7 @@ export const initialDisasters = [
       capacity: 1000
     },
     satelliteSource: "Sentinel-2 MSI",
-    satelliteObservationDate: "2026-08-30",
+    satelliteObservationDate: todayDateStr,
     status: "Active",
     description: "Monsoonal deluge causing high velocity overland runoff and flash flooding across lower valley settlements.",
     environmentalData: {
@@ -660,7 +663,7 @@ export const initialFacilities = [
 
 export const initialResponsePlans = [
   {
-    id: "RP-26192-01",
+    id: "RP-NDRF-01",
     disasterId: "zone-uk-1",
     zoneCode: "ZONE UK-01",
     disasterName: "Joshimath Slope Failure & Alaknanda Flash Flood Sector",

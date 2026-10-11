@@ -4,16 +4,16 @@
 
 @layer base {
   body {
-    @apply bg-[#030712] text-[#F8FAFC] antialiased font-sans;
+    @apply bg-slate-50 text-slate-900 antialiased font-sans;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom Leaflet Map Container Scoping & Containment */
+/* Custom Leaflet Map Container Scoping for Light Mode */
 .leaflet-container {
   width: 100%;
   height: 100%;
-  background: #030712 !important;
+  background: #f1f5f9 !important;
   font-family: inherit;
   z-index: 1 !important;
   isolation: isolate;
@@ -46,17 +46,16 @@
 }
 
 .leaflet-popup-content-wrapper {
-  background: rgba(11, 15, 25, 0.95) !important;
-  color: #F8FAFC !important;
-  border: 1px solid rgba(0, 240, 255, 0.3) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.25) !important;
-  backdrop-filter: blur(20px);
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
 }
 
 .leaflet-popup-tip {
-  background: #0B0F19 !important;
-  border: 1px solid rgba(0, 240, 255, 0.3) !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
 }
 
 .leaflet-popup-content {
@@ -65,126 +64,119 @@
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  color: #94A3B8 !important;
+  color: #64748b !important;
   padding: 6px !important;
 }
 
-/* Custom Scrollbars */
+/* Custom Scrollbars for Light Theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #cbd5e1;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00F0FF;
-  box-shadow: 0 0 10px #00F0FF;
+  background: #3b82f6;
 }
 
 /* =========================================================================
-   Neo-Cyberpunk Holo-Command (Neon Arc Matrix + Glass UI) Design System
+   Clean Modern Light Command Design System (White Background + Dark Typography)
    ========================================================================= */
 
-/* Cyberpunk Holo-Glass Card */
+/* Light Mode Command Card */
 .cyber-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(11, 15, 25, 0.92) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.75), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cyber-card-interactive {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(11, 15, 25, 0.88) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cyber-card-interactive:hover {
-  transform: translateY(-2px) scale(1.01);
-  border-color: rgba(0, 240, 255, 0.5);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 240, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.2);
-}
-
-/* Neon Cyber Action Buttons */
-.cyber-btn-cyan {
-  background: #00F0FF;
-  color: #030712;
-  font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.cyber-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.12), 0 8px 10px -6px rgba(59, 130, 246, 0.1);
+}
+
+/* Modern Light Action Buttons */
+.cyber-btn-cyan {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s ease;
+}
+
 .cyber-btn-cyan:hover {
-  background: #FFFFFF;
-  color: #030712;
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+  background: #1d4ed8;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   transform: translateY(-1px);
 }
 
 .cyber-btn-purple {
-  background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
-  color: #FFFFFF;
-  font-weight: 800;
-  border: 1px solid rgba(168, 85, 247, 0.5);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #7c3aed;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #6d28d9;
+  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
+  transition: all 0.2s ease;
 }
 
 .cyber-btn-purple:hover {
-  background: linear-gradient(135deg, #C084FC 0%, #9333EA 100%);
-  box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+  background: #6d28d9;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
   transform: translateY(-1px);
 }
 
 .cyber-btn-crimson {
-  background: linear-gradient(135deg, #FF2E54 0%, #E11D48 100%);
-  color: #FFFFFF;
-  font-weight: 800;
-  border: 1px solid rgba(255, 46, 84, 0.5);
-  box-shadow: 0 0 20px rgba(255, 46, 84, 0.4);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #dc2626;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #b91c1c;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  transition: all 0.2s ease;
 }
 
-/* Cyber Holo Navigation Pills */
+/* Light Navigation Pills */
 .cyber-pill {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #94A3B8;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   transition: all 0.2s ease;
 }
 
 .cyber-pill:hover {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(0, 240, 255, 0.4);
-  color: #F8FAFC;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
 }
 
 .cyber-pill-active {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.22) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid #00F0FF;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.2);
-  color: #00F0FF;
+  background: #eff6ff;
+  border: 1px solid #3b82f6;
+  color: #1d4ed8;
   font-weight: 800;
 }
 
-/* Legacy Alias Mappings for Smooth Transition */
+/* Legacy Alias Mappings */
 .hud-glass-panel,
 .hud-glass-card,
 .glass-vision,
@@ -206,5 +198,6 @@
 .liquid-pill-active {
   @apply cyber-pill-active;
 }
+
 
 

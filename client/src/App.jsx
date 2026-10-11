@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -13,17 +13,19 @@ import ResponsePlans from './pages/ResponsePlans';
 import Analytics from './pages/Analytics';
 
 export default function App() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#060913] text-slate-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
         {/* Top Command Header */}
-        <Header />
+        <Header onToggleMobileNav={() => setMobileNavOpen(prev => !prev)} />
 
         {/* Main Content Layout with Sidebar */}
-        <div className="flex flex-1">
-          <Sidebar />
+        <div className="flex flex-1 relative">
+          <Sidebar isOpen={mobileNavOpen} onCloseMobileNav={() => setMobileNavOpen(false)} />
 
-          <main className="flex-1 overflow-y-auto min-h-[calc(100vh-4rem)] bg-[#060913]">
+          <main className="flex-1 overflow-y-auto min-h-[calc(100vh-4rem)] bg-slate-50">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/zones" element={<DisasterZones />} />
@@ -42,3 +44,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+

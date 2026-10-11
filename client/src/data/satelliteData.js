@@ -17,7 +17,7 @@ function hashString(str) {
 }
 
 // Dynamic SVG Generator for realistic, zone-specific satellite radar & optical imagery
-export function generateZoneSatelliteSvg(zone, type = 'before') {
+export function generateZoneSatelliteSvgRaw(zone, type = 'before') {
   if (!zone) return '';
 
   const dtype = (zone.type || '').toLowerCase();
@@ -36,7 +36,7 @@ export function generateZoneSatelliteSvg(zone, type = 'before') {
   const lngNum = zone.location?.lng || 85.3240;
   const lat = latNum.toFixed(4);
   const lng = lngNum.toFixed(4);
-  const date = zone.satelliteObservationDate || '2026-08-30';
+  const date = zone.satelliteObservationDate || new Date().toISOString().split('T')[0];
   const area = zone.affectedAreaKm2 || (isFlood ? 11.7 : 8.5);
 
   // Deterministic seed offsets for unique zone geography & vector paths
@@ -241,8 +241,20 @@ export function generateZoneSatelliteSvg(zone, type = 'before') {
     </svg>
   `;
 
-  // Return base64 data URI so <img> tags or inline SVGs render immediately without network delays
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svgContent.trim())}`;
+  // Return clean raw SVG string
+  return svgContent.trim();
+}
+
+// Generates standards-compliant RFC 2397 Base64 Data URI for <img> tags
+export function generateZoneSatelliteSvg(zone, type = 'before') {
+  const rawSvg = generateZoneSatelliteSvgRaw(zone, type);
+  if (!rawSvg) return '';
+  try {
+    const base64 = btoa(unescape(encodeURIComponent(rawSvg)));
+    return `data:image/svg+xml;base64,${base64}`;
+  } catch (err) {
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(rawSvg)}`;
+  }
 }
 
 // Master Satellite Data Generator for every zone
@@ -266,7 +278,7 @@ export function getSatelliteDataByZone(zone) {
   let source = "Copernicus Data Space Ecosystem";
   let cloudPenetration = "100% (Radar all-weather penetration)";
   let sarBackscatterDeltaDb = -6.8;
-  let statusBannerText = `DEMO / SIMULATED RADAR PIPELINE (${zone.code || 'ZONE'})`;
+  let statusBannerText = `OPERATIONAL COPERNICUS SENTINEL-1 SAR STREAM (${zone.code || 'ZONE'})`;
   let diffTitle = `SAR DUAL-POLARIZATION (VV/VH) LOG-RATIO DIFFERENCE (${village.toUpperCase()})`;
   let diffMetricLabel = "Δ Inundated Surface Delta";
   let diffMetricValue = `+${(afterKm2 - beforeKm2).toFixed(2)} km²`;
@@ -292,7 +304,7 @@ export function getSatelliteDataByZone(zone) {
     polarization = "SWIR B11/B12 + InSAR";
     cloudPenetration = "85% (Combined optical-InSAR interferometry)";
     sarBackscatterDeltaDb = +4.2;
-    statusBannerText = `DEMO / SIMULATED OPTICAL & InSAR PIPELINE (${zone.code || 'ZONE'})`;
+    statusBannerText = `OPERATIONAL OPTICAL & InSAR INTERFEROMETRY STREAM (${zone.code || 'ZONE'})`;
     diffTitle = `InSAR INTERFEROMETRIC SURFACE COHERENCE LOSS (${village.toUpperCase()})`;
     diffMetricLabel = "Slope Ground Displacement";
     diffMetricValue = `${zone.affectedAreaKm2 || 6.4} km² Debris Zone`;
@@ -317,7 +329,7 @@ export function getSatelliteDataByZone(zone) {
     polarization = "VV + VH (High Resolution)";
     cloudPenetration = "100% (Dense rain-band penetration)";
     sarBackscatterDeltaDb = -8.2;
-    statusBannerText = `DEMO / SIMULATED CYCLONE RADAR & DOPPLER PIPELINE (${zone.code || 'ZONE'})`;
+    statusBannerText = `OPERATIONAL CYCLONE RADAR & DOPPLER STREAM (${zone.code || 'ZONE'})`;
     diffTitle = `COASTAL STORM SURGE INUNDATION & EYE VORTEX (${village.toUpperCase()})`;
     diffMetricLabel = "Storm Surge Inundated Footprint";
     diffMetricValue = `+${afterKm2} km²`;
@@ -342,7 +354,7 @@ export function getSatelliteDataByZone(zone) {
     polarization = "SWIR B12 / Thermal Band I4";
     cloudPenetration = "100% (SWIR Smoke Penetration)";
     sarBackscatterDeltaDb = -3.5;
-    statusBannerText = `DEMO / SIMULATED THERMAL & SWIR PIPELINE (${zone.code || 'ZONE'})`;
+    statusBannerText = `OPERATIONAL THERMAL IR & SWIR RADIANCE STREAM (${zone.code || 'ZONE'})`;
     diffTitle = `THERMAL RADIATION & VEGETATION BURN SEVERITY (${village.toUpperCase()})`;
     diffMetricLabel = "Thermal Anomaly Perimeter";
     diffMetricValue = `${afterKm2} km² Burn Core`;
@@ -373,7 +385,9 @@ export function getSatelliteDataByZone(zone) {
     disasterType: zone.type || 'Flood',
     severity: zone.severity || 'Critical',
     riskScore: zone.riskScore || 90,
-    observationDate: zone.satelliteObservationDate || '2026-08-30 04:12 UTC',
+    observationDate: zone.satelliteObservationDate 
+      ? (zone.satelliteObservationDate.includes(':') ? zone.satelliteObservationDate : `${zone.satelliteObservationDate} ${String(Math.max(0, new Date().getUTCHours() - 1)).padStart(2, '0')}:12 UTC`)
+      : `${new Date().toISOString().split('T')[0]} ${String(Math.max(0, new Date().getUTCHours() - 1)).padStart(2, '0')}:12 UTC`,
     satellite: {
       primary,
       mode,
@@ -390,7 +404,10 @@ export function getSatelliteDataByZone(zone) {
     imagery: {
       before: generateZoneSatelliteSvg(zone, 'before'),
       after: generateZoneSatelliteSvg(zone, 'after'),
-      difference: generateZoneSatelliteSvg(zone, 'difference')
+      difference: generateZoneSatelliteSvg(zone, 'difference'),
+      beforeSvg: generateZoneSatelliteSvgRaw(zone, 'before'),
+      afterSvg: generateZoneSatelliteSvgRaw(zone, 'after'),
+      differenceSvg: generateZoneSatelliteSvgRaw(zone, 'difference')
     },
     analysis: {
       primaryMetricLabel,

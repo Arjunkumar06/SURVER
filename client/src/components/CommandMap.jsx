@@ -178,16 +178,44 @@ export function createFacilityIcon(type) {
   });
 }
 
-// Controller component to smoothly fly to selected zone
-function MapFocusController({ selectedZone }) {
+// Controller component to smoothly fly to selected zone without resetting user zoom
+function MapFocusController({ selectedZone, globalCenter }) {
   const map = useMap();
+  const lastZoneIdRef = React.useRef(selectedZone?.id || selectedZone?.code || null);
+  const userHasZoomedRef = React.useRef(false);
+
+  // Track if user manually zoomed or panned so we don't clobber it
   useEffect(() => {
-    if (selectedZone && selectedZone.location) {
-      map.flyTo([selectedZone.location.lat, selectedZone.location.lng], 9, {
-        duration: 1.5
-      });
+    const handleZoomOrMove = () => {
+      userHasZoomedRef.current = true;
+    };
+    map.on('zoomend', handleZoomOrMove);
+    return () => {
+      map.off('zoomend', handleZoomOrMove);
+    };
+  }, [map]);
+
+  useEffect(() => {
+    const currentZoneId = selectedZone?.id || selectedZone?.code || null;
+    
+    // Only fly if the selected zone ACTUALLY changed to a different zone
+    if (currentZoneId !== lastZoneIdRef.current) {
+      lastZoneIdRef.current = currentZoneId;
+      
+      if (selectedZone && selectedZone.location) {
+        // If user already zoomed in, preserve their current zoom level; otherwise default to 9
+        const currentZoom = map.getZoom();
+        const targetZoom = userHasZoomedRef.current ? Math.max(currentZoom, 9) : 9;
+        map.flyTo([selectedZone.location.lat, selectedZone.location.lng], targetZoom, {
+          duration: 1.2
+        });
+      } else if (!selectedZone && globalCenter) {
+        // User clicked "Reset View"
+        userHasZoomedRef.current = false;
+        map.flyTo(globalCenter, 6.5, { duration: 1.2 });
+      }
     }
-  }, [selectedZone, map]);
+  }, [selectedZone?.id, selectedZone?.code, selectedZone?.location?.lat, selectedZone?.location?.lng, map, globalCenter]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -240,7 +268,7 @@ export default function CommandMap({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <MapFocusController selectedZone={selectedZone} />
+        <MapFocusController selectedZone={selectedZone} globalCenter={globalCenter} />
 
         {/* Disaster Inundation / Impact Danger Radii */}
         {activeLayers.radii && disasters.map((disaster) => {
@@ -428,7 +456,7 @@ export default function CommandMap({
       <div className="absolute bottom-4 left-4 z-[10] cyber-card p-3.5 rounded-2xl text-xs space-y-2 shadow-2xl font-mono">
         <div className="font-extrabold text-[#F8FAFC] text-[11px] uppercase tracking-widest flex items-center space-x-1.5">
           <span className="w-2 h-2 rounded-full bg-[#00F0FF]"></span>
-          <span>SIH 2026 GIS Legend</span>
+          <span>GIS HAZARD LAYERS</span>
         </div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[10.5px]">
           <div className="flex items-center space-x-1.5">

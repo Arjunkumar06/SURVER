@@ -200,41 +200,41 @@ export default function DisasterDetailModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#030712]/85 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-      <div className="cyber-card rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-[0_0_60px_rgba(0,0,0,0.9)] flex flex-col relative isolate border border-[#00F0FF]/30">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+      <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col relative isolate border border-slate-200">
         
         {/* SECTION 1: MODAL HEADER */}
-        <div className="p-5 border-b border-white/10 flex items-center justify-between sticky top-0 bg-[#030712]/95 backdrop-blur-2xl z-30">
+        <div className="p-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-md z-30">
           <div className="flex items-center space-x-3">
-            <span className="px-3 py-1 text-xs font-mono font-extrabold bg-[#0F172A] text-[#00F0FF] border border-[#00F0FF]/40 rounded-lg shadow-[0_0_12px_rgba(0,240,255,0.3)]">
+            <span className="px-3 py-1 text-xs font-mono font-extrabold bg-cyan-50 text-cyan-800 border border-cyan-200 rounded-lg shadow-sm">
               {zone.code}
             </span>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-base sm:text-lg font-extrabold text-[#F8FAFC] leading-tight font-mono">
+                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 leading-tight font-mono">
                   {zone.name}
                 </h2>
-                <span className="text-xs text-[#94A3B8] font-semibold">
+                <span className="text-xs text-slate-500 font-semibold">
                   ({zone.country || zone.location?.country || 'Global'})
                 </span>
               </div>
-              <p className="text-xs text-[#94A3B8] font-medium mt-0.5">
+              <p className="text-xs text-slate-500 font-medium mt-0.5">
                 {zone.region || zone.location?.address || 'Disaster Risk Sector'}
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
-            <span className={`px-3 py-1 text-xs font-bold font-mono rounded-lg shadow-lg ${
-              zone.severity === 'Critical' ? 'bg-[#FF2E54]/20 text-[#FF2E54] border border-[#FF2E54]/50 shadow-[0_0_15px_rgba(255,46,84,0.35)]' :
-              zone.severity === 'High' ? 'bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/50 shadow-[0_0_15px_rgba(245,158,11,0.35)]' :
-              'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/50 shadow-[0_0_15px_rgba(16,185,129,0.35)]'
+            <span className={`px-3 py-1 text-xs font-bold font-mono rounded-lg shadow-sm ${
+              zone.severity === 'Critical' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+              zone.severity === 'High' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+              'bg-emerald-100 text-emerald-800 border border-emerald-300'
             }`}>
               {zone.severity}
             </span>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] cyber-pill transition"
+              className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
               title="Close modal"
             >
               <X className="w-5 h-5" />
@@ -247,34 +247,34 @@ export default function DisasterDetailModal({
           
           {/* SECTION 2: ZONE STATISTICS & SUMMARY MATRIX */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3.5 cyber-card-interactive rounded-xl space-y-1">
-              <span className="text-[11px] text-[#94A3B8] font-medium">Disaster Type</span>
-              <div className="text-sm sm:text-base font-bold text-[#F8FAFC] flex items-center space-x-1.5 font-mono">
-                <AlertTriangle className="w-4 h-4 text-[#00F0FF]" />
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="text-[11px] text-slate-500 font-medium">Disaster Type</span>
+              <div className="text-sm sm:text-base font-bold text-slate-900 flex items-center space-x-1.5 font-mono">
+                <AlertTriangle className="w-4 h-4 text-cyan-600" />
                 <span>{zone.type}</span>
               </div>
             </div>
 
-            <div className="p-3.5 cyber-card-interactive rounded-xl space-y-1">
-              <span className="text-[11px] text-[#94A3B8] font-medium">Risk Evaluation</span>
-              <div className="text-sm sm:text-base font-bold text-[#FF2E54] flex items-center space-x-1.5 font-mono">
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="text-[11px] text-slate-500 font-medium">Risk Evaluation</span>
+              <div className="text-sm sm:text-base font-bold text-rose-600 flex items-center space-x-1.5 font-mono">
                 <span>{aiResult?.riskScore || zone.riskScore}/100</span>
-                <span className="text-[10px] text-[#94A3B8] uppercase">({aiResult?.severity || zone.severity})</span>
+                <span className="text-[10px] text-slate-500 uppercase">({aiResult?.severity || zone.severity})</span>
               </div>
             </div>
 
-            <div className="p-3.5 cyber-card-interactive rounded-xl space-y-1">
-              <span className="text-[11px] text-[#94A3B8] font-medium">Affected Population</span>
-              <div className="text-sm sm:text-base font-bold text-[#00F0FF] flex items-center space-x-1.5 font-mono">
-                <Users className="w-4 h-4 text-[#00F0FF]" />
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="text-[11px] text-slate-500 font-medium">Affected Population</span>
+              <div className="text-sm sm:text-base font-bold text-cyan-700 flex items-center space-x-1.5 font-mono">
+                <Users className="w-4 h-4 text-cyan-600" />
                 <span>{(zone.affectedPopulation || 8400).toLocaleString()}</span>
               </div>
             </div>
 
-            <div className="p-3.5 cyber-card-interactive rounded-xl space-y-1">
-              <span className="text-[11px] text-[#94A3B8] font-medium">Road Accessibility</span>
-              <div className="text-sm sm:text-base font-bold text-[#F59E0B] flex items-center space-x-1.5 font-mono">
-                <TrendingUp className="w-4 h-4 text-[#F59E0B]" />
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="text-[11px] text-slate-500 font-medium">Road Accessibility</span>
+              <div className="text-sm sm:text-base font-bold text-amber-700 flex items-center space-x-1.5 font-mono">
+                <TrendingUp className="w-4 h-4 text-amber-600" />
                 <span>{zone.roadAccessibilityPercent || 40}%</span>
               </div>
             </div>
@@ -283,16 +283,16 @@ export default function DisasterDetailModal({
           {/* SECTION 3: CONTAINED GEOGRAPHIC LEAFLET MAP */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center space-x-1.5 font-mono">
-                <Globe className="w-3.5 h-3.5 text-[#00F0FF]" />
+              <span className="font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5 font-mono">
+                <Globe className="w-3.5 h-3.5 text-cyan-600" />
                 <span>Sector GIS Location & Regional Proximity</span>
               </span>
-              <span className="text-[11px] font-mono text-[#00F0FF] font-bold">
+              <span className="text-[11px] font-mono text-cyan-700 font-bold">
                 GPS: {zone.location.lat.toFixed(4)}, {zone.location.lng.toFixed(4)}
               </span>
             </div>
 
-            <div className="w-full h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/10 relative bg-[#030712] z-0 isolate shadow-2xl">
+            <div className="w-full h-64 sm:h-72 rounded-2xl overflow-hidden border border-slate-200 relative bg-slate-100 z-0 isolate shadow-inner">
               <MapContainer
                 key={`modal-map-${zone.id || zone.code}`}
                 center={[zone.location.lat, zone.location.lng]}
@@ -315,8 +315,8 @@ export default function DisasterDetailModal({
                   center={[zone.location.lat, zone.location.lng]}
                   radius={(zone.affectedAreaKm2 || 8) * 220}
                   pathOptions={{
-                    color: zone.severity === 'Critical' ? '#FF2E54' : '#F59E0B',
-                    fillColor: zone.severity === 'Critical' ? '#FF2E54' : '#F59E0B',
+                    color: zone.severity === 'Critical' ? '#e11d48' : '#d97706',
+                    fillColor: zone.severity === 'Critical' ? '#e11d48' : '#d97706',
                     fillOpacity: 0.28,
                     weight: 3
                   }}
@@ -326,8 +326,8 @@ export default function DisasterDetailModal({
                   icon={createDisasterIcon(zone.severity, zone.code, true)}
                 >
                   <Popup>
-                    <div className="text-[#F8FAFC] font-sans text-xs space-y-1">
-                      <strong className="text-[#00F0FF]">{zone.code} (Target)</strong>
+                    <div className="text-slate-900 font-sans text-xs space-y-1">
+                      <strong className="text-cyan-700">{zone.code} (Target)</strong>
                       <p>{zone.name}</p>
                     </div>
                   </Popup>
@@ -341,10 +341,10 @@ export default function DisasterDetailModal({
                     icon={createDisasterIcon(nz.severity, nz.code, false)}
                   >
                     <Popup>
-                      <div className="text-[#F8FAFC] font-sans text-xs space-y-1">
-                        <strong className="text-[#FF2E54]">{nz.code}</strong>
+                      <div className="text-slate-900 font-sans text-xs space-y-1">
+                        <strong className="text-rose-600">{nz.code}</strong>
                         <p>{nz.name}</p>
-                        <p className="text-[#F59E0B] font-mono">Distance: {nz.distanceKm} km</p>
+                        <p className="text-amber-700 font-mono">Distance: {nz.distanceKm} km</p>
                       </div>
                     </Popup>
                   </Marker>
@@ -358,10 +358,10 @@ export default function DisasterDetailModal({
                     icon={createFacilityIcon(fac.type)}
                   >
                     <Popup>
-                      <div className="text-[#F8FAFC] font-sans text-xs space-y-1">
-                        <strong className="text-[#00F0FF]">{fac.name}</strong>
-                        <p className="text-[#94A3B8] font-mono">Distance: {fac.distanceKm} km</p>
-                        <p className="text-[#10B981] font-mono">Water Kits: {fac.inventory?.waterKits || 0}</p>
+                      <div className="text-slate-900 font-sans text-xs space-y-1">
+                        <strong className="text-cyan-700">{fac.name}</strong>
+                        <p className="text-slate-500 font-mono">Distance: {fac.distanceKm} km</p>
+                        <p className="text-emerald-600 font-mono">Water Kits: {fac.inventory?.waterKits || 0}</p>
                       </div>
                     </Popup>
                   </Marker>
@@ -373,11 +373,11 @@ export default function DisasterDetailModal({
           {/* SECTION 4: NEARBY DANGER ZONES */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center space-x-1.5 font-mono">
-                <AlertTriangle className="w-3.5 h-3.5 text-[#F59E0B]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center space-x-1.5 font-mono">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
                 <span>Geographic Danger Zones (Within 500 km Radius)</span>
               </h3>
-              <span className="text-[11px] text-[#94A3B8] font-mono">
+              <span className="text-[11px] text-slate-500 font-mono">
                 {nearbyDangerZones.length} Sector(s) Detected
               </span>
             </div>
@@ -387,23 +387,23 @@ export default function DisasterDetailModal({
                 {nearbyDangerZones.map((nz) => (
                   <div
                     key={nz.id || nz.code}
-                    className="p-3.5 cyber-card-interactive rounded-xl flex items-center justify-between text-xs"
+                    className="p-3.5 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center justify-between text-xs transition"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center space-x-2">
-                        <span className="px-2 py-0.5 font-mono font-bold text-[10px] bg-[#0F172A] text-[#00F0FF] rounded border border-white/10">
+                        <span className="px-2 py-0.5 font-mono font-bold text-[10px] bg-cyan-50 text-cyan-800 rounded border border-cyan-200">
                           {nz.code}
                         </span>
-                        <strong className="text-[#F8FAFC]">{nz.name}</strong>
+                        <strong className="text-slate-900">{nz.name}</strong>
                       </div>
-                      <div className="text-[11px] text-[#94A3B8]">
-                        <span>{nz.country || 'Region'}</span> | <span>Severity: <strong className="text-[#FF2E54]">{nz.severity}</strong></span>
+                      <div className="text-[11px] text-slate-500">
+                        <span>{nz.country || 'Region'}</span> | <span>Severity: <strong className="text-rose-600">{nz.severity}</strong></span>
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
-                      <span className="text-[10px] text-[#94A3B8] uppercase font-mono block">Distance</span>
-                      <span className="text-xs font-mono font-extrabold text-[#F59E0B]">
+                      <span className="text-[10px] text-slate-500 uppercase font-mono block">Distance</span>
+                      <span className="text-xs font-mono font-extrabold text-amber-700">
                         {nz.distanceKm} km
                       </span>
                     </div>
@@ -411,7 +411,7 @@ export default function DisasterDetailModal({
                 ))}
               </div>
             ) : (
-              <div className="p-3.5 cyber-card border border-dashed border-white/10 rounded-xl text-xs text-[#94A3B8] text-center">
+              <div className="p-3.5 bg-slate-50 border border-dashed border-slate-300 rounded-xl text-xs text-slate-500 text-center">
                 No secondary critical disaster zones detected within 500 km radius.
               </div>
             )}
@@ -420,11 +420,11 @@ export default function DisasterDetailModal({
           {/* SECTION 5: NEAREST LOGISTICS FACILITIES */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center space-x-1.5 font-mono">
-                <Warehouse className="w-3.5 h-3.5 text-[#00F0FF]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center space-x-1.5 font-mono">
+                <Warehouse className="w-3.5 h-3.5 text-cyan-600" />
                 <span>Nearest Resource Logistics Depots</span>
               </h3>
-              <span className="text-[11px] text-[#94A3B8] font-mono">
+              <span className="text-[11px] text-slate-500 font-mono">
                 {nearestFacilities.length} Reachable Facilities
               </span>
             </div>
@@ -433,24 +433,24 @@ export default function DisasterDetailModal({
               {nearestFacilities.map((fac) => (
                 <div
                   key={fac.id || fac.name}
-                  className="p-3.5 cyber-card-interactive rounded-xl space-y-1.5 text-xs"
+                  className="p-3.5 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl space-y-1.5 text-xs transition"
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="text-[10px] uppercase font-mono font-bold text-[#00F0FF] bg-[#0F172A] px-2 py-0.5 rounded border border-white/10">
+                      <span className="text-[10px] uppercase font-mono font-bold text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">
                         {fac.type}
                       </span>
-                      <h4 className="font-bold text-[#F8FAFC] pt-1">{fac.name}</h4>
+                      <h4 className="font-bold text-slate-900 pt-1">{fac.name}</h4>
                     </div>
-                    <span className="text-xs font-mono font-extrabold text-[#00F0FF] bg-[#0F172A] px-2 py-0.5 rounded border border-white/10">
+                    <span className="text-xs font-mono font-extrabold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">
                       {fac.distanceKm} km
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-1 pt-1.5 text-[11px] font-mono text-[#94A3B8] border-t border-white/10">
-                    <div>Water: <strong className="text-[#00F0FF]">{fac.inventory?.waterKits || 0}</strong></div>
-                    <div>Food: <strong className="text-[#F59E0B]">{fac.inventory?.foodKits || 0}</strong></div>
-                    <div>Ambulances: <strong className="text-[#10B981]">{fac.inventory?.ambulances || 0}</strong></div>
+                  <div className="grid grid-cols-3 gap-1 pt-1.5 text-[11px] font-mono text-slate-500 border-t border-slate-200">
+                    <div>Water: <strong className="text-cyan-700">{fac.inventory?.waterKits || 0}</strong></div>
+                    <div>Food: <strong className="text-amber-700">{fac.inventory?.foodKits || 0}</strong></div>
+                    <div>Ambulances: <strong className="text-emerald-700">{fac.inventory?.ambulances || 0}</strong></div>
                   </div>
                 </div>
               ))}
@@ -460,17 +460,17 @@ export default function DisasterDetailModal({
           {/* SECTION 6: RESOURCE REQUIREMENTS & SHORTAGE FULFILLMENT TABLE */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC] font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 font-mono">
                 Resource Requirements & Supply Fulfillment Matrix
               </h3>
-              <span className="text-[11px] text-[#94A3B8]">
+              <span className="text-[11px] text-slate-500">
                 Objective supply matching from nearby depots
               </span>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-white/10 cyber-card">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#0F172A] text-[#94A3B8] uppercase font-mono text-[10px] border-b border-white/10">
+                <thead className="bg-slate-50 text-slate-600 uppercase font-mono text-[10px] border-b border-slate-200">
                   <tr>
                     <th className="p-3">Resource Item</th>
                     <th className="p-3">Required</th>
@@ -480,26 +480,26 @@ export default function DisasterDetailModal({
                     <th className="p-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/10 font-mono text-[#F8FAFC]">
+                <tbody className="divide-y divide-slate-100 font-mono text-slate-900">
                   {requirementsTable.map((row) => (
-                    <tr key={row.key} className="hover:bg-[#0F172A]/60 transition">
-                      <td className="p-3 font-sans font-medium text-[#F8FAFC] flex items-center space-x-2">
-                        <row.icon className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
+                    <tr key={row.key} className="hover:bg-slate-50 transition">
+                      <td className="p-3 font-sans font-medium text-slate-900 flex items-center space-x-2">
+                        <row.icon className="w-3.5 h-3.5 text-cyan-600 shrink-0" />
                         <span>{row.label}</span>
                       </td>
                       <td className="p-3 font-bold">{row.required} {row.unit}</td>
-                      <td className="p-3 text-[#00F0FF]">{row.nearbyAvailable} {row.unit}</td>
-                      <td className="p-3 text-[#10B981] font-bold">{row.allocated} {row.unit}</td>
-                      <td className={`p-3 font-bold ${row.isDeficit ? 'text-[#FF2E54]' : 'text-[#94A3B8]'}`}>
+                      <td className="p-3 text-cyan-700">{row.nearbyAvailable} {row.unit}</td>
+                      <td className="p-3 text-emerald-700 font-bold">{row.allocated} {row.unit}</td>
+                      <td className={`p-3 font-bold ${row.isDeficit ? 'text-rose-600' : 'text-slate-500'}`}>
                         {row.isDeficit ? `-${row.shortage} ${row.unit}` : '0'}
                       </td>
                       <td className="p-3 font-sans">
                         {row.isDeficit ? (
-                          <span className="px-2 py-0.5 bg-[#FF2E54]/20 text-[#FF2E54] border border-[#FF2E54]/40 rounded text-[10px] font-bold">
+                          <span className="px-2 py-0.5 bg-rose-100 text-rose-800 border border-rose-300 rounded text-[10px] font-bold">
                             ⚠ Deficit
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/40 rounded text-[10px] font-bold">
+                          <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded text-[10px] font-bold">
                             ✓ Fulfilled
                           </span>
                         )}
@@ -512,22 +512,22 @@ export default function DisasterDetailModal({
           </div>
 
           {/* SECTION 7: SATELLITE RADAR OBSERVATION */}
-          <div className="p-4 cyber-card rounded-2xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 bg-[#0F172A] border border-[#00F0FF]/40 rounded-xl text-[#00F0FF] shrink-0 shadow-[0_0_12px_rgba(0,240,255,0.25)]">
-                <Satellite className="w-5 h-5 text-[#00F0FF]" />
+              <div className="p-2.5 bg-cyan-50 border border-cyan-200 rounded-xl text-cyan-700 shrink-0">
+                <Satellite className="w-5 h-5 text-cyan-600" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-bold text-[#00F0FF] font-mono">
+                  <span className="text-xs font-bold text-cyan-800 font-mono">
                     SENTINEL-1 C-BAND SAR OBSERVATION
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 bg-[#0F172A] text-[#10B981] border border-[#10B981]/40 rounded font-mono font-bold">
+                  <span className="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded font-mono font-bold">
                     100% Cloud Penetration
                   </span>
                 </div>
-                <p className="text-xs text-[#94A3B8]">
-                  Surface Inundation: <strong className="text-[#F8FAFC]">{zone.waterCoverageBeforeKm2 || 3.2} km²</strong> → <strong className="text-[#00F0FF]">{zone.waterCoverageAfterKm2 || 11.7} km²</strong> (<span className="text-[#FF2E54] font-bold">+{zone.waterExpansionPercent || 265.6}% Expansion</span>)
+                <p className="text-xs text-slate-600">
+                  Surface Inundation: <strong className="text-slate-900">{zone.waterCoverageBeforeKm2 || 3.2} km²</strong> → <strong className="text-cyan-700">{zone.waterCoverageAfterKm2 || 11.7} km²</strong> (<span className="text-rose-600 font-bold">+{zone.waterExpansionPercent || 265.6}% Expansion</span>)
                 </p>
               </div>
             </div>
@@ -535,7 +535,7 @@ export default function DisasterDetailModal({
             {onViewSatellite && (
               <button
                 onClick={() => onViewSatellite(zone)}
-                className="px-4 py-2 cyber-pill hover:border-[#00F0FF] text-xs font-semibold text-[#00F0FF] rounded-xl border border-white/10 transition shrink-0"
+                className="px-4 py-2 bg-white hover:bg-slate-100 text-xs font-semibold text-cyan-700 rounded-xl border border-slate-300 transition shrink-0 shadow-sm"
               >
                 Inspect Satellite
               </button>
@@ -543,18 +543,18 @@ export default function DisasterDetailModal({
           </div>
 
           {/* SECTION 8: GEMINI AI EMERGENCY INTELLIGENCE */}
-          <div className="p-5 cyber-card rounded-2xl border border-[#A855F7]/40 space-y-4 shadow-[0_0_25px_rgba(168,85,247,0.2)]">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="p-5 bg-purple-50/50 rounded-2xl border border-purple-200 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between border-b border-purple-200/60 pb-3">
               <div className="flex items-center space-x-2">
-                <Sparkles className="w-4.5 h-4.5 text-[#A855F7] drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
-                <h3 className="text-sm font-bold text-[#F8FAFC] tracking-wide font-mono">
+                <Sparkles className="w-4.5 h-4.5 text-purple-600" />
+                <h3 className="text-sm font-bold text-slate-900 tracking-wide font-mono">
                   GEMINI AI DISASTER INTELLIGENCE
                 </h3>
               </div>
               <button
                 onClick={handleRunAIAnalysis}
                 disabled={analyzing}
-                className="px-4 py-2 cyber-btn-purple text-[#F8FAFC] rounded-xl text-xs font-bold flex items-center space-x-1.5 transition"
+                className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 transition shadow-sm"
               >
                 {analyzing ? (
                   <>
@@ -571,32 +571,32 @@ export default function DisasterDetailModal({
             </div>
 
             {error && (
-              <div className="p-3 bg-[#FF2E54]/20 border border-[#FF2E54]/40 rounded-xl text-xs text-[#FF2E54]">
+              <div className="p-3 bg-rose-100 border border-rose-300 rounded-xl text-xs text-rose-800">
                 {error}
               </div>
             )}
 
             {aiResult && (
               <div className="space-y-3 pt-1">
-                <div className="flex items-center justify-between text-xs bg-[#0F172A] p-2.5 rounded-xl border border-white/10">
-                  <span className="text-[#A855F7] font-semibold flex items-center space-x-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
+                <div className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                  <span className="text-purple-800 font-semibold flex items-center space-x-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>AI Urgency Assessment:</span>
-                    <strong className="text-[#FF2E54] uppercase font-mono">{aiResult.urgency}</strong>
+                    <strong className="text-rose-600 uppercase font-mono">{aiResult.urgency}</strong>
                   </span>
-                  <span className="text-[10px] text-[#94A3B8] font-mono">
+                  <span className="text-[10px] text-slate-500 font-mono">
                     Model: {aiResult.aiModelUsed || 'Gemini 1.5 Flash'}
                   </span>
                 </div>
 
-                <div className="space-y-2 cyber-card p-3.5 rounded-xl border border-white/10">
-                  <span className="text-[11px] font-bold text-[#F8FAFC] uppercase tracking-wider block font-mono">
+                <div className="space-y-2 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                  <span className="text-[11px] font-bold text-slate-900 uppercase tracking-wider block font-mono">
                     AI Evidence & Reasoning Checklist:
                   </span>
-                  <ul className="space-y-1.5 text-xs text-[#F8FAFC]">
+                  <ul className="space-y-1.5 text-xs text-slate-800">
                     {aiResult.reasoning.map((point, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
-                        <span className="text-[#00F0FF] font-bold">✓</span>
+                        <span className="text-cyan-600 font-bold">✓</span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -608,10 +608,10 @@ export default function DisasterDetailModal({
         </div>
 
         {/* SECTION 9: STICKY ACTION BUTTONS FOOTER */}
-        <div className="p-4 sm:p-5 border-t border-white/10 bg-[#030712]/95 sticky bottom-0 z-30 flex items-center justify-between mt-auto backdrop-blur-2xl">
+        <div className="p-4 sm:p-5 border-t border-slate-100 bg-white sticky bottom-0 z-30 flex items-center justify-between mt-auto backdrop-blur-md">
           <button
             onClick={onClose}
-            className="px-4 py-2 cyber-pill text-xs font-semibold text-[#94A3B8] rounded-xl transition border border-white/10"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 rounded-xl transition border border-slate-300"
           >
             Close
           </button>
@@ -621,7 +621,7 @@ export default function DisasterDetailModal({
               onOptimize && onOptimize(zone);
               onClose();
             }}
-            className="px-6 py-2.5 cyber-btn-cyan font-mono rounded-xl text-xs font-extrabold flex items-center space-x-2 transition"
+            className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-mono rounded-xl text-xs font-extrabold flex items-center space-x-2 transition shadow-sm"
           >
             <Navigation className="w-4 h-4" />
             <span>OPTIMIZE RESOURCE RESPONSE</span>

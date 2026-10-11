@@ -69,84 +69,84 @@ export default function Analytics() {
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-lg sm:text-xl font-mono font-extrabold text-[#F8FAFC] tracking-wider uppercase">
+        <h1 className="text-lg sm:text-xl font-mono font-extrabold text-slate-900 tracking-wider uppercase">
           Emergency Response Analytics & Efficiency
         </h1>
-        <p className="text-xs text-[#94A3B8] font-mono mt-0.5">
+        <p className="text-xs text-slate-600 font-mono mt-0.5">
           Cross-sector telemetry, resource stock fulfillment, and algorithmic dispatch performance
         </p>
       </div>
 
       {/* KPI Highlight Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <div className="p-4 cyber-card-interactive rounded-2xl space-y-1 relative">
-          <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase tracking-wider">Response Speed</span>
-          <div className="text-2xl font-extrabold text-[#00F0FF] font-mono">18 mins</div>
-          <p className="text-[10px] font-mono text-[#00F0FF]">From alert to vehicle roll-out</p>
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-1 relative shadow-sm">
+          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Response Speed</span>
+          <div className="text-2xl font-extrabold text-cyan-700 font-mono">18 mins</div>
+          <p className="text-[10px] font-mono text-cyan-600">From alert to vehicle roll-out</p>
         </div>
 
-        <div className="p-4 cyber-card-interactive rounded-2xl space-y-1 relative">
-          <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase tracking-wider">Target Coverage</span>
-          <div className="text-2xl font-extrabold text-[#10B981] font-mono">82%</div>
-          <p className="text-[10px] font-mono text-[#10B981]">Of total emergency demand</p>
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-1 relative shadow-sm">
+          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Target Coverage</span>
+          <div className="text-2xl font-extrabold text-emerald-700 font-mono">82%</div>
+          <p className="text-[10px] font-mono text-emerald-600">Of total emergency demand</p>
         </div>
 
-        <div className="p-4 cyber-card-interactive rounded-2xl space-y-1 relative">
-          <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase tracking-wider">Depot Utilization</span>
-          <div className="text-2xl font-extrabold text-[#A855F7] font-mono">91%</div>
-          <p className="text-[10px] font-mono text-[#A855F7]">Stock efficiency rating</p>
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-1 relative shadow-sm">
+          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Depot Utilization</span>
+          <div className="text-2xl font-extrabold text-purple-700 font-mono">91%</div>
+          <p className="text-[10px] font-mono text-purple-600">Stock efficiency rating</p>
         </div>
 
-        <div className="p-4 cyber-card-interactive rounded-2xl space-y-1 relative">
-          <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase tracking-wider">AI Confidence</span>
-          <div className="text-2xl font-extrabold text-[#F59E0B] font-mono">98.4%</div>
-          <p className="text-[10px] font-mono text-[#F59E0B]">Radar & demographic sync</p>
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-1 relative shadow-sm">
+          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">AI Confidence</span>
+          <div className="text-2xl font-extrabold text-amber-700 font-mono">98.4%</div>
+          <p className="text-[10px] font-mono text-amber-600">Radar & demographic sync</p>
         </div>
       </div>
 
       {/* Main Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Resource Demand vs Available vs Allocated (8 cols) */}
-        <div className="lg:col-span-8 cyber-card rounded-2xl p-5 space-y-4 shadow-2xl relative border border-white/10">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#F8FAFC]">
+        <div className="lg:col-span-8 bg-white rounded-2xl p-5 space-y-4 shadow-sm relative border border-slate-200">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
               Resource Stock vs Demand vs Allocated Units
             </h3>
-            <span className="text-[10px] text-[#00F0FF] font-mono font-bold bg-[#00F0FF]/15 px-2 py-0.5 rounded-lg border border-[#00F0FF]/40">Logistics Inventory</span>
+            <span className="text-[10px] text-cyan-800 font-mono font-bold bg-cyan-100 px-2 py-0.5 rounded-lg border border-cyan-300">Logistics Inventory</span>
           </div>
 
           <div className="h-72 w-full font-mono">
             {resourceData ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={resourceData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
-                  <XAxis dataKey="name" stroke="#94A3B8" tick={{ fontSize: 11 }} />
-                  <YAxis stroke="#94A3B8" tick={{ fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 11 }} />
+                  <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#0F172A', borderColor: 'rgba(0,240,255,0.3)', borderRadius: '12px', color: '#F8FAFC', fontSize: '12px', backdropFilter: 'blur(16px)', boxShadow: '0 8px 24px rgba(0,0,0,0.8)' }}
+                    contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '12px', color: '#0f172a', fontSize: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                   />
                   <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                  <Bar dataKey="demand" fill="#FF2E54" name="Target Demand" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="allocated" fill="#00F0FF" name="Dispatched / Allocated" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="demand" fill="#e11d48" name="Target Demand" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="allocated" fill="#0891b2" name="Dispatched / Allocated" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full w-full flex flex-col items-center justify-center border border-dashed border-white/10 rounded-xl cyber-card text-[#94A3B8] space-y-2">
-                <BarChart3 className="w-8 h-8 text-[#94A3B8] opacity-50" />
-                <span className="text-xs font-mono font-bold text-[#94A3B8]">Telemetry Stream Not Available</span>
-                <span className="text-[10px] font-mono text-[#94A3B8]">Resource inventory telemetry pending data sync</span>
+              <div className="h-full w-full flex flex-col items-center justify-center border border-dashed border-slate-300 rounded-xl bg-slate-50 text-slate-500 space-y-2">
+                <BarChart3 className="w-8 h-8 text-slate-400 opacity-50" />
+                <span className="text-xs font-mono font-bold text-slate-600">Telemetry Stream Not Available</span>
+                <span className="text-[10px] font-mono text-slate-400">Resource inventory telemetry pending data sync</span>
               </div>
             )}
           </div>
         </div>
 
         {/* Disaster Type Distribution (4 cols) */}
-        <div className="lg:col-span-4 cyber-card rounded-2xl p-5 space-y-4 shadow-2xl flex flex-col justify-between relative border border-white/10">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#F8FAFC]">
+        <div className="lg:col-span-4 bg-white rounded-2xl p-5 space-y-4 shadow-sm flex flex-col justify-between relative border border-slate-200">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
               Disaster Type Breakdown
             </h3>
-            <span className="text-[10px] text-[#00F0FF] font-mono font-bold bg-[#00F0FF]/15 px-2 py-0.5 rounded-lg border border-[#00F0FF]/40">Active Incidents</span>
+            <span className="text-[10px] text-cyan-800 font-mono font-bold bg-cyan-100 px-2 py-0.5 rounded-lg border border-cyan-300">Active Incidents</span>
           </div>
 
           <div className="h-56 w-full flex items-center justify-center font-mono">
@@ -167,24 +167,24 @@ export default function Analytics() {
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#0F172A', borderColor: 'rgba(0,240,255,0.3)', borderRadius: '12px', color: '#F8FAFC', fontSize: '12px', backdropFilter: 'blur(16px)' }}
+                    contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '12px', color: '#0f172a', fontSize: '12px' }}
                   />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full w-full flex flex-col items-center justify-center border border-dashed border-white/10 rounded-xl cyber-card text-[#94A3B8] space-y-1">
-                <Activity className="w-6 h-6 text-[#94A3B8] opacity-50" />
-                <span className="text-xs font-mono font-bold text-[#94A3B8]">Data Not Available</span>
+              <div className="h-full w-full flex flex-col items-center justify-center border border-dashed border-slate-300 rounded-xl bg-slate-50 text-slate-500 space-y-1">
+                <Activity className="w-6 h-6 text-slate-400 opacity-50" />
+                <span className="text-xs font-mono font-bold text-slate-500">Data Not Available</span>
               </div>
             )}
           </div>
 
           {disasterData && (
-            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10 text-xs font-mono">
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 text-xs font-mono">
               {disasterData.map((entry, idx) => (
                 <div key={idx} className="flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: PIE_COLORS[idx % PIE_COLORS.length] }}></span>
-                  <span className="text-[#94A3B8]">{entry.name}: <strong className="text-white">{entry.count}</strong></span>
+                  <span className="text-slate-600">{entry.name}: <strong className="text-slate-900">{entry.count}</strong></span>
                 </div>
               ))}
             </div>
@@ -193,12 +193,12 @@ export default function Analytics() {
       </div>
 
       {/* Response Efficiency Timeline Area Chart */}
-      <div className="cyber-card rounded-2xl p-5 space-y-4 shadow-2xl relative border border-white/10">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#F8FAFC]">
+      <div className="bg-white rounded-2xl p-5 space-y-4 shadow-sm relative border border-slate-200">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
             Algorithmic Response Efficiency & Convergence Timeline
           </h3>
-          <span className="text-[10px] text-[#10B981] font-mono font-bold bg-[#10B981]/15 px-2 py-0.5 rounded-lg border border-[#10B981]/40">+17% Improvement over baseline</span>
+          <span className="text-[10px] text-emerald-800 font-mono font-bold bg-emerald-100 px-2 py-0.5 rounded-lg border border-emerald-300">+17% Improvement over baseline</span>
         </div>
 
         <div className="h-64 w-full font-mono">
@@ -206,23 +206,23 @@ export default function Analytics() {
             <AreaChart data={responseTrends} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorEff" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00F0FF" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#00F0FF" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#0891b2" stopOpacity={0.6}/>
+                  <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="colorCov" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10B981" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#059669" stopOpacity={0.6}/>
+                  <stop offset="95%" stopColor="#059669" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
-              <XAxis dataKey="time" stroke="#94A3B8" tick={{ fontSize: 11 }} />
-              <YAxis stroke="#94A3B8" tick={{ fontSize: 11 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="time" stroke="#64748b" tick={{ fontSize: 11 }} />
+              <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#0F172A', borderColor: 'rgba(0,240,255,0.3)', borderRadius: '12px', color: '#F8FAFC', fontSize: '12px', backdropFilter: 'blur(16px)' }}
+                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '12px', color: '#0f172a', fontSize: '12px' }}
               />
               <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-              <Area type="monotone" dataKey="efficiency" stroke="#00F0FF" fillOpacity={1} fill="url(#colorEff)" name="Efficiency Index (%)" />
-              <Area type="monotone" dataKey="coverage" stroke="#10B981" fillOpacity={1} fill="url(#colorCov)" name="Population Coverage (%)" />
+              <Area type="monotone" dataKey="efficiency" stroke="#0891b2" fillOpacity={1} fill="url(#colorEff)" name="Efficiency Index (%)" />
+              <Area type="monotone" dataKey="coverage" stroke="#059669" fillOpacity={1} fill="url(#colorCov)" name="Population Coverage (%)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>

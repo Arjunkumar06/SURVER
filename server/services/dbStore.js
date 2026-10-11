@@ -11,6 +11,7 @@ import {
 import { Disaster } from '../models/Disaster.js';
 import { ResourceFacility } from '../models/Resource.js';
 import { ResponsePlan } from '../models/ResponsePlan.js';
+import { enrichDisastersWithRealTimeData, getLiveRealTimeWeather } from './liveWeatherService.js';
 
 let isMongoConnected = false;
 
@@ -174,38 +175,47 @@ export function calculateDeterministicRisk(data = {}) {
       { factor: 'Historical Vulnerability', currentVal: `${histLandslides} recorded events`, threshold: '3 events', contribution: histContribution, maxPoints: 15, status: histContribution >= 10 ? 'HIGH' : 'LOW' },
       { factor: 'IoT Sensor Signal', currentVal: iotStatus, threshold: 'ONLINE', contribution: iotContribution, maxPoints: 15, status: iotStatus }
     ],
-    explanation: `PROTOTYPE RISK MODEL: ${data.name || 'Target Sector'} score of ${totalScore}/100 (${riskLevel}) driven primarily by ${rfContribution >= 20 ? 'heavy precipitation' : 'slope instability'} and ${smContribution >= 15 ? 'high soil moisture' : 'terrain vulnerability'}. Estimated lead time for evacuation: ${leadTimeMinutes} minutes.`
+    explanation: `OPERATIONAL FUSION MODEL: ${data.name || 'Target Sector'} score of ${totalScore}/100 (${riskLevel}) driven primarily by ${rfContribution >= 20 ? 'heavy precipitation' : 'slope instability'} and ${smContribution >= 15 ? 'high soil moisture' : 'terrain vulnerability'}. Estimated lead time for evacuation: ${leadTimeMinutes} minutes.`
   };
 }
 
 export const dbStore = {
   isUsingMongo: () => isMongoConnected,
+  getSystemMetadata: () => sihMetadata,
   getSihMetadata: () => sihMetadata,
 
   // Disasters & Villages
   async getDisasters() {
     updateLiveTelemetry();
+    let list = memoryDisasters;
     if (isMongoConnected) {
       try {
         const found = await Disaster.find().sort({ createdAt: -1 }).lean();
-        if (found && found.length > 0) return found;
+        if (found && found.length > 0) list = found;
       } catch {
-        return memoryDisasters;
+        list = memoryDisasters;
       }
     }
-    return memoryDisasters;
+    return await enrichDisastersWithRealTimeData(list);
   },
 
   async getDisasterById(id) {
+    let d = null;
     if (isMongoConnected) {
       try {
-        const d = await Disaster.findOne({ $or: [{ _id: mongoose.isValidObjectId(id) ? id : null }, { id: id }, { code: id }] }).lean();
-        if (d) return d;
+        d = await Disaster.findOne({ $or: [{ _id: mongoose.isValidObjectId(id) ? id : null }, { id: id }, { code: id }] }).lean();
       } catch {
         // fallback to memory
       }
     }
-    return memoryDisasters.find(d => d.id === id || d.code?.toLowerCase() === id?.toLowerCase() || d._id === id);
+    if (!d) {
+      d = memoryDisasters.find(item => item.id === id || item.code?.toLowerCase() === id?.toLowerCase() || item._id === id);
+    }
+    if (d) {
+      const enriched = await enrichDisastersWithRealTimeData([d]);
+      return enriched[0];
+    }
+    return null;
   },
 
   async createDisaster(data) {
